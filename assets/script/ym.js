@@ -37,11 +37,32 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
+
+    this.node.x = -450
+    this.node.y = 200
+    this.node.scaleX = 0.05
+    this.node.scaleY = 0.05
+
+    this.rigidBody = this.node.getComponent(cc.RigidBody)
+    this.rigidBody.type = cc.RigidBodyType.Dynamic
+    this.rigidBody.allowSleep = true
+    this.rigidBody.gravityScale = 10
+
+    this.ropeJoint = this.node.getComponent(cc.RopeJoint)
+    let ceiling = this.node.parent.getChildByName('ceiling')
+    this.ropeJoint.connectedBody = ceiling.getComponent(cc.RigidBody)
+    this.ropeJoint.anchor = cc.v2(0, 0)
+    this.ropeJoint.connectedAnchor = cc.v2(0, 0)
+    this.ropeJoint.collideConnected = true
+    this.maxLength = 200
+
+    this.mainCamera = this.node.getChildByName('Main Camera')
   },
 
   start () {},
 
   update (dt) {
     this.mainCamera.x = this.node.x
+    this.mainCamera.y = 200
   }
 })
