@@ -38,6 +38,7 @@ cc.Class({
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
 
+    /*
     this.node.x = -450
     this.node.y = 200
     this.node.scaleX = 0.05
@@ -55,6 +56,7 @@ cc.Class({
     this.ropeJoint.connectedAnchor = cc.v2(0, 0)
     this.ropeJoint.collideConnected = true
     this.maxLength = 200
+    */
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 

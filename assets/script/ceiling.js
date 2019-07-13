@@ -34,11 +34,13 @@ cc.Class({
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
 
+    /*
     this.node.x = 8
     this.node.y = 320
 
     this.rigidBody = this.node.getComponent(cc.RigidBody)
     this.rigidBody.type = cc.RigidBodyType.Static
+    */
   },
 
   start () {},
