@@ -35,11 +35,27 @@ cc.Class({
     this.rigidBody = this.node.getComponent(cc.RigidBody)
     this.rigidBody.type = cc.RigidBodyType.Static
     this.rigidBody.gravityScale = 0
+
+    this.ym = this.node.getChildByName('ym')
+    this.ceiling = this.node.getChildByName('ceiling')
+
+    this.node.on('touchstart', this.touchStartHandler, this)
+    this.node.on('touchend', this.touchStartHandler, this)
   },
 
   start () {
 
-  }
+  },
 
   // update (dt) {},
+
+  touchStartHandler (event) {
+    console.log(event.getLocationX() + ', ' + event.getLocationY())
+    // ym.stickOutTongue()
+  },
+
+  touchEndHandler (event) {
+    console.log(event.getLocationX() + ', ' + event.getLocationY())
+    // ym.rollUpTongue()
+  }
 })

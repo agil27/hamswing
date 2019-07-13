@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-cc.Class({
+let ym = cc.Class({
   extends: cc.Component,
 
   properties: {
@@ -63,6 +63,14 @@ cc.Class({
 
   update (dt) {
     this.mainCamera.x = this.node.x
-    this.mainCamera.y = 200
+    this.mainCamera.y = 320 - this.node.y
+  },
+
+  stickOutTongue () {
+    console.log('stick out')
+  },
+
+  rollUpTongue () {
+    console.log('roll up')
   }
 })
