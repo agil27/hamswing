@@ -43,5 +43,7 @@ cc.Class({
 
   start () {},
 
-  update (dt) {}
+  update (dt) {
+    console.log(this.node.x + ', ' + this.node.y)
+  }
 })

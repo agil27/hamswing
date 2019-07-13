@@ -63,7 +63,7 @@ let ym = cc.Class({
 
   update (dt) {
     this.mainCamera.x = this.node.x
-    this.mainCamera.y = 320 - this.node.y
+    // this.mainCamera.y = 320 - this.node.y
   },
 
   stickOutTongue () {
