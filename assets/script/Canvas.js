@@ -39,8 +39,8 @@ cc.Class({
     this.ym = this.node.getChildByName('ym')
     this.ceiling = this.node.getChildByName('ceiling')
 
-    this.node.on('touchstart', this.touchStartHandler, this)
-    this.node.on('touchend', this.touchStartHandler, this)
+    // this.node.on('touchstart', this.touchStartHandler, this)
+    // this.node.on('touchend', this.touchStartHandler, this)
   },
 
   start () {

@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-let ym = cc.Class({
+cc.Class({
   extends: cc.Component,
 
   properties: {
@@ -57,6 +57,9 @@ let ym = cc.Class({
     this.maxLength = 200
 
     this.mainCamera = this.node.getChildByName('Main Camera')
+
+    this.node.parent.on('touchstart', this.stickOutTongue, this)
+    this.node.parent.on('touchend', this.rollUpTongue, this)
   },
 
   start () {},
