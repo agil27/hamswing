@@ -30,7 +30,8 @@ cc.Class({
     mainCamera: {
       default: null,
       type: cc.Node
-    }
+    },
+    hanging: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -49,8 +50,6 @@ cc.Class({
     this.rigidBody.allowSleep = true
     this.rigidBody.gravityScale = 10
 
-    this.ropeJoint = this.node.getComponent(cc.RopeJoint)
-    let ceiling = this.node.parent.getChildByName('ceiling')
     this.ropeJoint.connectedBody = ceiling.getComponent(cc.RigidBody)
     this.ropeJoint.anchor = cc.v2(0, 0)
     this.ropeJoint.connectedAnchor = cc.v2(0, 0)
@@ -60,11 +59,16 @@ cc.Class({
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 
+    this.ropeJoint = this.node.getComponent(cc.RopeJoint)
+    this.ceiling = this.node.parent.getChildByName('ceiling')
+
     this.node.parent.on('touchstart', this.stickOutTongue, this)
     this.node.parent.on('touchend', this.rollUpTongue, this)
   },
 
-  start () {},
+  start () {
+    this.stickOutTongue()
+  },
 
   update (dt) {
     this.mainCamera.x = this.node.x
@@ -72,10 +76,18 @@ cc.Class({
   },
 
   stickOutTongue () {
-    console.log('stick out')
+    if (!this.hanging) {
+      console.log('stick out')
+      cc.game.emit('stickout')
+      this.hanging = true
+    }
   },
 
   rollUpTongue () {
-    console.log('roll up')
+    if (this.hanging) {
+      console.log('roll up')
+      cc.game.emit('rollup')
+      this.hanging = false
+    }
   }
 })
