@@ -75,6 +75,7 @@ cc.Class({
     let p2 = this.attachPointInWorldSpace
     let distance = this.calculateDistance(p1, p2)
     let angle = this.calculateAngle(p1, p2)
+    
     if (this.isLengthening) {
       this.curLength += this.lengthenSpeed
       if (this.curLength > distance) {
@@ -86,6 +87,8 @@ cc.Class({
     if (this.isShortening) {
       this.curLength -= this.shortenSpeed
       if (this.curLength < 0) {
+        let v = this.ym.getComponent(cc.RigidBody).linearVelocity
+        this.ym.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x + 100 * Math.sin(-this.toArc(angle)), v.y - 100 * Math.cos(-this.toArc(angle)))
         this.curLength = 0
         this.isShortening = false
       }
@@ -141,5 +144,9 @@ cc.Class({
 
   calculateAngle (p1, p2) {
     return -Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI
+  },
+
+  toArc(ang) {
+    return Math.PI * ang / 180
   }
 })

@@ -71,8 +71,13 @@ cc.Class({
   },
 
   update (dt) {
-    this.mainCamera.x = this.node.x
-    // this.mainCamera.y = 320 - this.node.y
+    let globalNodePos = this.node.parent.convertToWorldSpaceAR(this.node.position)
+    let nodePos = this.node.convertToNodeSpaceAR(globalNodePos)
+    let globalPos = this.node.parent.convertToWorldSpaceAR(cc.Vec2.ZERO)
+    let pos = this.node.convertToNodeSpaceAR(globalPos)
+    this.mainCamera.x = nodePos.x
+    this.mainCamera.y = pos.y
+    console.log(globalPos.y, pos.y, this.node.parent.getChildByName('ceiling').y)
   },
 
   stickOutTongue () {
