@@ -28,7 +28,8 @@ cc.Class({
     //     }
     // },
     curLength: 0,
-    lengthenSpeed: 5,
+    lengthenSpeed: 15,
+    shortenSpeed: 15,
     angle: 0,
     isLengthening: false,
     isShortening: false,
@@ -76,15 +77,19 @@ cc.Class({
     let angle = this.calculateAngle(p1, p2)
     if (this.isLengthening) {
       this.curLength += this.lengthenSpeed
-      console.log('len: ' + this.curLength)
-      console.log('dis: ' + distance)
       if (this.curLength > distance) {
         this.curLength = distance
         this.isLengthening = false
         this.attach(this.attachPointInNodeSpace)
       }
     }
-    // if (this.isShortening)
+    if (this.isShortening) {
+      this.curLength -= this.shortenSpeed
+      if (this.curLength < 0) {
+        this.curLength = 0
+        this.isShortening = false
+      }
+    }
     this.node.width = this.curLength
     this.node.position = this.ym.position
     this.node.rotation = angle
