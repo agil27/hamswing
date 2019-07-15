@@ -12,41 +12,47 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    // foo: {
-    //     // ATTRIBUTES:
-    //     default: null,        // The default value will be used only when the component attaching
-    //                           // to a node for the first time
-    //     type: cc.SpriteFrame, // optional, default is typeof default
-    //     serializable: true,   // optional, default is true
-    // },
-    // bar: {
-    //     get () {
-    //         return this._bar;
-    //     },
-    //     set (value) {
-    //         this._bar = value;
-    //     }
-    // },
+    monsterPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
+    minY: -150,
+    maxY: 250,
+    fixedDeltaX: 500,
+
+    minTimeInterval: 1000,
+    maxTimeInterval: 3000,
+
+    score: 0
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
-    /*
-    this.rigidBody = this.node.getComponent(cc.RigidBody)
-    this.rigidBody.type = cc.RigidBodyType.Static
-    this.rigidBody.gravityScale = 0
+  onLoad () {},
 
-    this.ym = this.node.getChildByName('ym')
-    this.ceiling = this.node.getChildByName('ceiling')
-    */
-
-    // this.node.on('touchstart', this.touchStartHandler, this)
-    // this.node.on('touchend', this.touchStartHandler, this)
+  start () {
+    setTimeout(this.generateMonster.bind(this), 2000)
   },
 
-  start () {}
+  update (dt) {},
 
-  // update (dt) {},
+  generateMonster () {
+    let monster = cc.instantiate(this.monsterPrefab)
+    this.node.addChild(monster)
+    monster.setPosition(this.generateMonsterPosition())
+    let timeInterval = this.generateInterval()
+    setTimeout(this.generateMonster.bind(this), timeInterval)
+  },
+
+  generateMonsterPosition () {
+    let x = this.fixedDeltaX + this.node.getChildByName('ym').x
+    let y = this.minY + (this.maxY - this.minY) * Math.random()
+    return cc.v2(x, y)
+  },
+
+  generateInterval () {
+    return this.minTimeInterval + (this.maxTimeInterval - this.minTimeInterval) * Math.random()
+  }
 
 })
