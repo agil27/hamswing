@@ -39,13 +39,13 @@ cc.Class({
   onLoad () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
-
-    this.lastGenerateX = this.node.getChildByName('ym').x
   },
 
   start () {
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
+
+    this.lastGenerateX = this.node.getChildByName('ym').x + this.fixedDeltaX
   },
 
   update (dt) {},
