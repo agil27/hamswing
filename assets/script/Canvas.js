@@ -31,7 +31,34 @@ cc.Class({
 
     lastGenerateX: 0,
 
-    score: 0
+    score: 0,
+
+    ym: {
+      default: null,
+      type: cc.Node
+    },
+
+    mainCamera: {
+      default: null,
+      type: cc.Node
+    },
+
+    bg1: {
+      default: null,
+      type: cc.Node
+    },
+
+    bg2: {
+      default: null,
+      type: cc.Node
+    },
+
+    panel: {
+      default : null,
+      type : cc.Node
+    },
+
+    isGameOver: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -39,16 +66,54 @@ cc.Class({
   onLoad () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
+    this.mainCamera = this.node.getChildByName('Main Camera')
+    this.ym = this.node.getChildByName('ym')
+    this.bg1 = this.node.getChildByName('bg1')
+    this.bg2 = this.node.getChildByName('bg2')
+    this.panel = this.node.getChildByName('overPanel')
+    this.isGameOver = false
+    this.bg1.on('touchstart', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymstickout')
+      }
+    })
+    this.bg2.on('touchstart', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymstickout')
+      }
+    })
+    this.bg1.on('touchend', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymrollup')
+      }
+    })
+    this.bg2.on('touchend', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymrollup')
+      }
+    })
+    this.bg1.on('touchcancel', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymrollup')
+      }
+    })
+    this.bg2.on('touchcancel', ()=>{
+      if (!this.isGameOver) {
+        cc.game.emit('ymrollup')
+      }
+    })
   },
 
   start () {
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
-
     this.lastGenerateX = this.node.getChildByName('ym').x + this.fixedDeltaX
   },
 
-  update (dt) {},
+  update (dt) {
+    this.mainCamera.x = this.ym.x
+    this.mainCamera.y = 0
+  },
 
   generateObject () {
     let obj
@@ -67,6 +132,10 @@ cc.Class({
   },
 
   gameover () {
+    this.node.getChildByName('tongue').active = false
+    this.ym.active = false
+    this.isGameOver = true
+    this.panel.active = true
     console.log('gameover!')
   },
 

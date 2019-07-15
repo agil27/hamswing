@@ -34,11 +34,11 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        this.ym = this.node.parent.getChildByName('ym')
     },
 
     update (dt) {
         this.node.x = this.ym.x
-        this.node.y = 100
+        this.node.y = 0
     },
 });

@@ -12,10 +12,6 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    mainCamera: {
-      default: null,
-      type: cc.Node
-    },
     hanging: false
   },
 
@@ -25,13 +21,12 @@ cc.Class({
     cc.director.getPhysicsManager().enabled = true
     cc.director.getCollisionManager().enabled = true
 
-    this.mainCamera = this.node.getChildByName('Main Camera')
-
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
 
-    this.node.parent.on('touchstart', this.stickOutTongue, this)
-    this.node.parent.on('touchend', this.rollUpTongue, this)
+    // this.node.parent.on('touchstart', this.stickOutTongue, this)
+    cc.game.on('ymstickout', this.stickOutTongue, this)
+    cc.game.on('ymrollup', this.rollUpTongue, this)
   },
 
   start () {
@@ -39,12 +34,6 @@ cc.Class({
   },
 
   update (dt) {
-    let globalNodePos = this.node.parent.convertToWorldSpaceAR(this.node.position)
-    let nodePos = this.node.convertToNodeSpaceAR(globalNodePos)
-    let globalPos = this.node.parent.convertToWorldSpaceAR(cc.Vec2.ZERO)
-    let pos = this.node.convertToNodeSpaceAR(globalPos)
-    this.mainCamera.x = nodePos.x
-    this.mainCamera.y = pos.y
     let bg1 = this.node.parent.getChildByName('bg1')
     let bg2 = this.node.parent.getChildByName('bg2')
     // console.log(bg1.x, bg2.x, this.node.x)
@@ -59,7 +48,7 @@ cc.Class({
       this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
     }
 
-    this.node.parent.getChildByName('score').x = this.mainCamera.x
+    this.node.parent.getChildByName('score').x = this.node.x
   },
 
   stickOutTongue () {
@@ -78,6 +67,7 @@ cc.Class({
 
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
+      other.node.destroy()
       cc.game.emit('gameover')
     } else if (other.node.name === 'star') {
       other.node.destroy()
