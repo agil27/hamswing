@@ -12,21 +12,6 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    // foo: {
-    //     // ATTRIBUTES:
-    //     default: null,        // The default value will be used only when the component attaching
-    //                           // to a node for the first time
-    //     type: cc.SpriteFrame, // optional, default is typeof default
-    //     serializable: true,   // optional, default is true
-    // },
-    // bar: {
-    //     get () {
-    //         return this._bar;
-    //     },
-    //     set (value) {
-    //         this._bar = value;
-    //     }
-    // },
     mainCamera: {
       default: null,
       type: cc.Node
@@ -38,25 +23,6 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
-    cc.director.getCollisionManager().enabled = true
-
-    /*
-    this.node.x = -450
-    this.node.y = 200
-    this.node.scaleX = 0.05
-    this.node.scaleY = 0.05
-
-    this.rigidBody = this.node.getComponent(cc.RigidBody)
-    this.rigidBody.type = cc.RigidBodyType.Dynamic
-    this.rigidBody.allowSleep = true
-    this.rigidBody.gravityScale = 10
-
-    this.ropeJoint.connectedBody = ceiling.getComponent(cc.RigidBody)
-    this.ropeJoint.anchor = cc.v2(0, 0)
-    this.ropeJoint.connectedAnchor = cc.v2(0, 0)
-    this.ropeJoint.collideConnected = true
-    this.maxLength = 200
-    */
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 
@@ -81,10 +47,10 @@ cc.Class({
     let bg1 = this.node.parent.getChildByName('bg1')
     let bg2 = this.node.parent.getChildByName('bg2')
     console.log(bg1.x, bg2.x, this.node.x)
-    if (bg1.x + 1600 < this.node.x) {
+    if (bg1.x + 1600 < this.node.x){
       bg1.x += 3200
     }
-    if (bg2.x + 1600 < this.node.x) {
+    if (bg2.x + 1600 < this.node.x){
       bg2.x += 3200
     }
   },
@@ -102,14 +68,6 @@ cc.Class({
       console.log('roll up')
       cc.game.emit('rollup')
       this.hanging = false
-    }
-  },
-
-  onCollisionEnter (other, self) {
-    if (other.node.name === 'monster') {
-      cc.game.emit('gameover')
-    } else if (other.node.name === 'star') {
-      cc.game.emit('getstar')
     }
   }
 })
