@@ -63,7 +63,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
+  onEnable () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
     this.mainCamera = this.node.getChildByName('Main Camera')
@@ -72,6 +72,7 @@ cc.Class({
     this.bg2 = this.node.getChildByName('bg2')
     this.panel = this.node.getChildByName('overPanel')
     this.isGameOver = false
+    
     this.bg1.on('touchstart', ()=>{
       if (!this.isGameOver) {
         cc.game.emit('ymstickout')
@@ -107,7 +108,7 @@ cc.Class({
   start () {
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
-    this.lastGenerateX = this.node.getChildByName('ym').x + this.fixedDeltaX
+    this.lastGenerateX = this.ym.x + this.fixedDeltaX
   },
 
   update (dt) {
@@ -116,23 +117,27 @@ cc.Class({
   },
 
   generateObject () {
-    let obj
-    if (Math.random() > 0.3) {
-      obj = cc.instantiate(this.starPrefab)
-    } else {
-      obj = cc.instantiate(this.monsterPrefab)
+    if (!this.isGameOver) {
+      let obj
+      if (Math.random() > 0.3) {
+        obj = cc.instantiate(this.starPrefab)
+      } else {
+        obj = cc.instantiate(this.monsterPrefab)
+      }
+      //console.log(this.node)
+      this.node.addChild(obj)
+      let pos = this.generatePosition()
+      if (pos !== null) {
+        obj.setPosition(pos)
+      }
+      let timeInterval = this.generateInterval()
+      setTimeout(this.generateObject.bind(this), timeInterval)
     }
-    this.node.addChild(obj)
-    let pos = this.generatePosition()
-    if (pos !== null) {
-      obj.setPosition(pos)
-    }
-    let timeInterval = this.generateInterval()
-    setTimeout(this.generateObject.bind(this), timeInterval)
   },
 
   gameover () {
     this.node.getChildByName('tongue').active = false
+    this.ym.enabled = false
     this.ym.active = false
     this.isGameOver = true
     this.panel.active = true

@@ -44,7 +44,7 @@ cc.Class({
       bg2.x += 3200
     }
     
-    if (this.node.y < 0) {
+    if (this.node.y < -240) {
       cc.game.emit('gameover')
     }
 
