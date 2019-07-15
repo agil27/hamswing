@@ -29,7 +29,10 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {},
+  onLoad () {
+    // console.log('onload')
+    // cc.game.on('gameover', this.gameover, this)
+  },
 
   start () {
     setTimeout(this.generateMonster.bind(this), 2000)
@@ -43,6 +46,10 @@ cc.Class({
     monster.setPosition(this.generateMonsterPosition())
     let timeInterval = this.generateInterval()
     setTimeout(this.generateMonster.bind(this), timeInterval)
+  },
+
+  gameover () {
+    console.log('gameover!')
   },
 
   generateMonsterPosition () {

@@ -13,8 +13,8 @@ cc.Class({
 
   properties: {
     curLength: 0,
-    lengthenSpeed: 15,
-    shortenSpeed: 15,
+    lengthenSpeed: 25,
+    shortenSpeed: 25,
     angle: 0,
     isLengthening: false,
     isShortening: false,

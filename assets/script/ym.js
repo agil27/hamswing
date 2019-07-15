@@ -23,6 +23,7 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
+    cc.director.getCollisionManager().enabled = true
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 
@@ -60,6 +61,14 @@ cc.Class({
       console.log('roll up')
       cc.game.emit('rollup')
       this.hanging = false
+    }
+  },
+
+  onCollisionEnter (other, self) {
+    if (other.node.name === 'monster') {
+      cc.game.emit('gameover')
+    } else if (other.node.name === 'star') {
+      cc.game.emit('getstar')
     }
   }
 })
