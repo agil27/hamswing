@@ -29,6 +29,8 @@ cc.Class({
     minTimeInterval: 1000,
     maxTimeInterval: 3000,
 
+    lastGenerateX: 0,
+
     score: 0
   },
 
@@ -36,6 +38,8 @@ cc.Class({
 
   onLoad () {
     cc.game.on('gameover', this.gameover, this)
+
+    this.lastGenerateX = this.node.getChildByName('ym').x
   },
 
   start () {
@@ -52,7 +56,10 @@ cc.Class({
       obj = cc.instantiate(this.monsterPrefab)
     }
     this.node.addChild(obj)
-    obj.setPosition(this.generatePosition())
+    let pos = this.generatePosition()
+    if (pos !== null) {
+      obj.setPosition(pos)
+    }
     let timeInterval = this.generateInterval()
     setTimeout(this.generateObject.bind(this), timeInterval)
   },
@@ -64,6 +71,11 @@ cc.Class({
   generatePosition () {
     let x = this.fixedDeltaX + this.node.getChildByName('ym').x
     let y = this.minY + (this.maxY - this.minY) * Math.random()
+    console.log('x: ' + x)
+    if (x < this.lastGenerateX + this.fixedDeltaX) {
+      return null
+    }
+    this.lastGenerateX = x
     return cc.v2(x, y)
   },
 

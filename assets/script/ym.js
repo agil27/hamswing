@@ -58,12 +58,10 @@ cc.Class({
     if (this.node.y > this.ceiling.y) {
       this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
     }
-    console.log()
   },
 
   stickOutTongue () {
     if (!this.hanging) {
-      console.log('stick out')
       cc.game.emit('stickout')
       this.hanging = true
     }
@@ -71,7 +69,6 @@ cc.Class({
 
   rollUpTongue () {
     if (this.hanging) {
-      console.log('roll up')
       cc.game.emit('rollup')
       this.hanging = false
     }
@@ -81,6 +78,7 @@ cc.Class({
     if (other.node.name === 'monster') {
       cc.game.emit('gameover')
     } else if (other.node.name === 'star') {
+      other.node.destroy()
       cc.game.emit('touchstar')
     }
   }

@@ -84,8 +84,6 @@ cc.Class({
   },
 
   lengthen () {
-    console.log('lengthen')
-    console.log(this.isLengthening)
     if (!this.isLengthening) {
       this.node.active = true
       this.isLengthening = true
@@ -106,7 +104,6 @@ cc.Class({
   },
 
   attach (connectedAnchor) {
-    console.log('attach')
     this.ropeJoint.enabled = true
     this.ropeJoint.connectedBody = this.ceiling.getComponent(cc.RigidBody)
     this.ropeJoint.anchor = cc.v2(0, 0)
