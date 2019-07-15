@@ -30,8 +30,7 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    // console.log('onload')
-    // cc.game.on('gameover', this.gameover, this)
+    cc.game.on('gameover', this.gameover, this)
   },
 
   start () {

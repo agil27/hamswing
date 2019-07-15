@@ -23,6 +23,7 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
+    cc.director.getCollisionManager().enabled = true
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 
@@ -46,11 +47,11 @@ cc.Class({
     this.mainCamera.y = pos.y
     let bg1 = this.node.parent.getChildByName('bg1')
     let bg2 = this.node.parent.getChildByName('bg2')
-    console.log(bg1.x, bg2.x, this.node.x)
-    if (bg1.x + 1600 < this.node.x){
+    // console.log(bg1.x, bg2.x, this.node.x)
+    if (bg1.x + 1600 < this.node.x) {
       bg1.x += 3200
     }
-    if (bg2.x + 1600 < this.node.x){
+    if (bg2.x + 1600 < this.node.x) {
       bg2.x += 3200
     }
     let v = this.node.getComponent(cc.RigidBody).linearVelocity
@@ -74,5 +75,9 @@ cc.Class({
       cc.game.emit('rollup')
       this.hanging = false
     }
+  },
+
+  onCollisionEnter (other, self) {
+    cc.game.emit('gameover')
   }
 })
