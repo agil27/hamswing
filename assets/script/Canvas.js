@@ -24,7 +24,7 @@ cc.Class({
 
     minY: -150,
     maxY: 250,
-    fixedDeltaX: 500,
+    fixedDeltaX: 800,
 
     minTimeInterval: 1000,
     maxTimeInterval: 3000,
