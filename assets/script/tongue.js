@@ -12,21 +12,6 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    // foo: {
-    //     // ATTRIBUTES:
-    //     default: null,        // The default value will be used only when the component attaching
-    //                           // to a node for the first time
-    //     type: cc.SpriteFrame, // optional, default is typeof default
-    //     serializable: true,   // optional, default is true
-    // },
-    // bar: {
-    //     get () {
-    //         return this._bar;
-    //     },
-    //     set (value) {
-    //         this._bar = value;
-    //     }
-    // },
     curLength: 0,
     lengthenSpeed: 15,
     shortenSpeed: 15,
@@ -75,7 +60,7 @@ cc.Class({
     let p2 = this.attachPointInWorldSpace
     let distance = this.calculateDistance(p1, p2)
     let angle = this.calculateAngle(p1, p2)
-    
+
     if (this.isLengthening) {
       this.curLength += this.lengthenSpeed
       if (this.curLength > distance) {
@@ -146,7 +131,7 @@ cc.Class({
     return -Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI
   },
 
-  toArc(ang) {
+  toArc (ang) {
     return Math.PI * ang / 180
   }
 })
