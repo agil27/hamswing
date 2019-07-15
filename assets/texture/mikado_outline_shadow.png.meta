@@ -1,6 +1,6 @@
 {
   "ver": "2.2.0",
-  "uuid": "677e2667-2e73-47fd-8665-9ece23aefc24",
+  "uuid": "b5805bf3-f069-474c-ba69-d705b3d5939b",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -8,8 +8,8 @@
   "subMetas": {
     "mikado_outline_shadow": {
       "ver": "1.0.4",
-      "uuid": "f6d312f4-40a1-4990-85c8-0fec43650c55",
-      "rawTextureUuid": "677e2667-2e73-47fd-8665-9ece23aefc24",
+      "uuid": "64ce18c6-b3b3-418a-b23b-665cbc7b905d",
+      "rawTextureUuid": "b5805bf3-f069-474c-ba69-d705b3d5939b",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

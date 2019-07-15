@@ -58,6 +58,8 @@ cc.Class({
     if (this.node.y > this.ceiling.y) {
       this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
     }
+
+    this.node.parent.getChildByName('score').x = this.mainCamera.x
   },
 
   stickOutTongue () {
