@@ -986,6 +986,9 @@
     "monsterPrefab": {
       "__uuid__": "f075a49b-ceb3-4c98-8394-06fcf82bbc8c"
     },
+    "starPrefab": {
+      "__uuid__": "c7262a65-0115-43b5-ba5d-f433b7246b41"
+    },
     "minY": -150,
     "maxY": 250,
     "fixedDeltaX": 500,

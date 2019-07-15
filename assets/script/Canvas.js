@@ -17,6 +17,11 @@ cc.Class({
       type: cc.Prefab
     },
 
+    starPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
     minY: -150,
     maxY: 250,
     fixedDeltaX: 500,
@@ -34,24 +39,29 @@ cc.Class({
   },
 
   start () {
-    setTimeout(this.generateMonster.bind(this), 2000)
+    setTimeout(this.generateObject.bind(this), 2000)
   },
 
   update (dt) {},
 
-  generateMonster () {
-    let monster = cc.instantiate(this.monsterPrefab)
-    this.node.addChild(monster)
-    monster.setPosition(this.generateMonsterPosition())
+  generateObject () {
+    let obj
+    if (Math.random() > 0.6) {
+      obj = cc.instantiate(this.starPrefab)
+    } else {
+      obj = cc.instantiate(this.monsterPrefab)
+    }
+    this.node.addChild(obj)
+    obj.setPosition(this.generatePosition())
     let timeInterval = this.generateInterval()
-    setTimeout(this.generateMonster.bind(this), timeInterval)
+    setTimeout(this.generateObject.bind(this), timeInterval)
   },
 
   gameover () {
     console.log('gameover!')
   },
 
-  generateMonsterPosition () {
+  generatePosition () {
     let x = this.fixedDeltaX + this.node.getChildByName('ym').x
     let y = this.minY + (this.maxY - this.minY) * Math.random()
     return cc.v2(x, y)
