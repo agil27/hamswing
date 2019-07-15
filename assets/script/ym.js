@@ -77,7 +77,15 @@ cc.Class({
     let pos = this.node.convertToNodeSpaceAR(globalPos)
     this.mainCamera.x = nodePos.x
     this.mainCamera.y = pos.y
-    console.log(globalPos.y, pos.y, this.node.parent.getChildByName('ceiling').y)
+    let bg1 = this.node.parent.getChildByName('bg1')
+    let bg2 = this.node.parent.getChildByName('bg2')
+    console.log(bg1.x, bg2.x, this.node.x)
+    if (bg1.x + 1600 < this.node.x){
+      bg1.x += 3200
+    }
+    if (bg2.x + 1600 < this.node.x){
+      bg2.x += 3200
+    }
   },
 
   stickOutTongue () {
