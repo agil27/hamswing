@@ -78,6 +78,10 @@ cc.Class({
   },
 
   onCollisionEnter (other, self) {
-    cc.game.emit('gameover')
+    if (other.node.name === 'monster') {
+      cc.game.emit('gameover')
+    } else if (other.node.name === 'star') {
+      cc.game.emit('touchstar')
+    }
   }
 })
