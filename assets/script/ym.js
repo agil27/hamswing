@@ -81,10 +81,10 @@ cc.Class({
     let bg1 = this.node.parent.getChildByName('bg1')
     let bg2 = this.node.parent.getChildByName('bg2')
     console.log(bg1.x, bg2.x, this.node.x)
-    if (bg1.x + 1600 < this.node.x){
+    if (bg1.x + 1600 < this.node.x) {
       bg1.x += 3200
     }
-    if (bg2.x + 1600 < this.node.x){
+    if (bg2.x + 1600 < this.node.x) {
       bg2.x += 3200
     }
   },
