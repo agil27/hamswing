@@ -156,6 +156,9 @@ cc.Class({
 
   generateInterval () {
     return this.minTimeInterval + (this.maxTimeInterval - this.minTimeInterval) * Math.random()
-  }
+  },
 
+  restartGame() {
+    cc.director.loadScene('game')
+  }
 })
