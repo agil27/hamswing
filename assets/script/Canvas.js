@@ -38,19 +38,21 @@ cc.Class({
 
   onLoad () {
     cc.game.on('gameover', this.gameover, this)
-
-    this.lastGenerateX = this.node.getChildByName('ym').x
+    cc.game.on('touchstar', this.touchStar, this)
   },
 
   start () {
     setTimeout(this.generateObject.bind(this), 2000)
+    cc.game.emit('updatescore', this.score)
+
+    this.lastGenerateX = this.node.getChildByName('ym').x + this.fixedDeltaX
   },
 
   update (dt) {},
 
   generateObject () {
     let obj
-    if (Math.random() > 0.6) {
+    if (Math.random() > 0.3) {
       obj = cc.instantiate(this.starPrefab)
     } else {
       obj = cc.instantiate(this.monsterPrefab)
@@ -68,10 +70,14 @@ cc.Class({
     console.log('gameover!')
   },
 
+  touchStar () {
+    ++this.score
+    cc.game.emit('updatescore', this.score)
+  },
+
   generatePosition () {
     let x = this.fixedDeltaX + this.node.getChildByName('ym').x
     let y = this.minY + (this.maxY - this.minY) * Math.random()
-    console.log('x: ' + x)
     if (x < this.lastGenerateX + this.fixedDeltaX) {
       return null
     }
