@@ -23,6 +23,7 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
+    cc.director.getCollisionManager().enabled = true
 
     this.mainCamera = this.node.getChildByName('Main Camera')
 
@@ -69,5 +70,9 @@ cc.Class({
       cc.game.emit('rollup')
       this.hanging = false
     }
+  },
+
+  onCollisionEnter (other, self) {
+    cc.game.emit('gameover')
   }
 })
