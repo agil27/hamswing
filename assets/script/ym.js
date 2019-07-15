@@ -53,6 +53,11 @@ cc.Class({
     if (bg2.x + 1600 < this.node.x){
       bg2.x += 3200
     }
+    let v = this.node.getComponent(cc.RigidBody).linearVelocity
+    if (this.node.y > this.ceiling.y) {
+      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
+    }
+    console.log()
   },
 
   stickOutTongue () {
