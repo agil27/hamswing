@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.22576436131720465,
-      "y": 0.22576436131720465,
+      "x": 0.31250000000000094,
+      "y": 0.31250000000000094,
       "z": 1
     },
     "_quat": {
@@ -394,8 +394,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1024,
-      "height": 1024
+      "width": 2000,
+      "height": 2000
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -521,10 +521,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "56f7c301-4cb5-485f-8b69-e80e78a5ae02"
+      "__uuid__": "90f26404-1ef2-41c3-b01b-2177bdf8313a"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -603,7 +603,7 @@
     "_id": "e9iP7Fbs1F1oIs9sFscT9c"
   },
   {
-    "__type__": "cc.PolygonCollider",
+    "__type__": "cc.CircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -616,34 +616,8 @@
       "x": 0,
       "y": 0
     },
-    "points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -238.8,
-        "y": 352.6
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -455.1,
-        "y": -79
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -318.5,
-        "y": -483.7
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 375.4,
-        "y": -506.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 341.2,
-        "y": 364
-      }
-    ],
-    "_id": "e5551er69PBKjpUycuYpLT"
+    "_radius": 512,
+    "_id": "7b+FubgyxLf4sBAPIkTqGD"
   },
   {
     "__type__": "cc.Node",
@@ -793,7 +767,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 56,
+      "x": 1656,
       "y": 0,
       "z": 0
     },
@@ -881,7 +855,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 1656,
+      "x": 56,
       "y": 0,
       "z": 0
     },
@@ -986,9 +960,7 @@
     "monsterPrefab": {
       "__uuid__": "f075a49b-ceb3-4c98-8394-06fcf82bbc8c"
     },
-    "starPrefab": {
-      "__uuid__": "c7262a65-0115-43b5-ba5d-f433b7246b41"
-    },
+    "starPrefab": null,
     "minY": -150,
     "maxY": 250,
     "fixedDeltaX": 500,
