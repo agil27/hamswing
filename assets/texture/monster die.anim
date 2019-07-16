@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "monster die",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.08333333333333333,
+  "sample": 60,
+  "speed": 0.1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "a9b66fc8-71a7-4578-b777-afa4d3459286"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "ebab5566-9f45-4612-80f5-a0a508aa585c"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "73fef5e7-7137-4a1f-8d6f-03911e2da702"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "959a1ac0-1417-4c1a-b780-8a5b68f67333"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

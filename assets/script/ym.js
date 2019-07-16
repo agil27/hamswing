@@ -55,6 +55,9 @@ cc.Class({
 
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
+      setTimeout(() => {
+        
+      }, 0.2);
       other.node.destroy()
       cc.game.emit('gameover')
     } else if (other.node.name === 'star') {
