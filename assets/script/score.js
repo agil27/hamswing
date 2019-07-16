@@ -36,7 +36,7 @@ cc.Class({
   },
 
   update (dt) {
-    this.node.x = this.ym.x
+    this.node.x = this.node.parent.getChildByName('Main Camera').x
     this.node.y = 100
   },
 

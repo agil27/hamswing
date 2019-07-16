@@ -35,10 +35,11 @@ cc.Class({
 
     start () {
         this.ym = this.node.parent.getChildByName('ym')
+        this.zIndex = 10000
     },
 
     update (dt) {
-        this.node.x = this.ym.x
+        this.node.x = this.node.parent.getChildByName('Main Camera').x
         this.node.y = 0
     },
 });
