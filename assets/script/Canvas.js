@@ -70,6 +70,8 @@ cc.Class({
     this.ym = this.node.getChildByName('ym')
     this.bg1 = this.node.getChildByName('bg1')
     this.bg2 = this.node.getChildByName('bg2')
+    this.bgc0 = this.node.getChildByName('bgcloud0')
+    this.bgc1 = this.node.getChildByName('bgcloud1')
     this.panel = this.node.getChildByName('overPanel')
     this.isGameOver = false
 
@@ -117,9 +119,11 @@ cc.Class({
 
     if (this.bg1.x + 1600 < this.ym.x) {
       this.bg1.x += 3200
+      this.bgc1.x += 3200
     }
     if (this.bg2.x + 1600 < this.ym.x) {
       this.bg2.x += 3200
+      this.bgc0.x += 3200
     }
 
     if (this.ym.y < -240 && !this.isGameOver) {
