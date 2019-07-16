@@ -24,7 +24,6 @@ cc.Class({
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
 
-    // this.node.parent.on('touchstart', this.stickOutTongue, this)
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
   },
@@ -34,26 +33,10 @@ cc.Class({
   },
 
   update (dt) {
-    let bg1 = this.node.parent.getChildByName('bg1')
-    let bg2 = this.node.parent.getChildByName('bg2')
-    // console.log(bg1.x, bg2.x, this.node.x)
-    if (bg1.x + 1600 < this.node.x) {
-      bg1.x += 3200
-    }
-    if (bg2.x + 1600 < this.node.x) {
-      bg2.x += 3200
-    }
-    
-    if (this.node.y < -240) {
-      cc.game.emit('gameover')
-    }
-
     let v = this.node.getComponent(cc.RigidBody).linearVelocity
     if (this.node.y > this.ceiling.y) {
       this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
     }
-
-    this.node.parent.getChildByName('score').x = this.node.x
   },
 
   stickOutTongue () {

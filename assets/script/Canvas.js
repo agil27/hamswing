@@ -24,10 +24,10 @@ cc.Class({
 
     minY: -150,
     maxY: 250,
-    fixedDeltaX: 800,
+    fixedDeltaX: 500,
 
-    minTimeInterval: 1000,
-    maxTimeInterval: 3000,
+    minTimeInterval: 300,
+    maxTimeInterval: 1000,
 
     lastGenerateX: 0,
 
@@ -54,8 +54,8 @@ cc.Class({
     },
 
     panel: {
-      default : null,
-      type : cc.Node
+      default: null,
+      type: cc.Node
     },
 
     isGameOver: false
@@ -72,33 +72,33 @@ cc.Class({
     this.bg2 = this.node.getChildByName('bg2')
     this.panel = this.node.getChildByName('overPanel')
     this.isGameOver = false
-    
-    this.bg1.on('touchstart', ()=>{
+
+    this.bg1.on('touchstart', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymstickout')
       }
     })
-    this.bg2.on('touchstart', ()=>{
+    this.bg2.on('touchstart', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymstickout')
       }
     })
-    this.bg1.on('touchend', ()=>{
+    this.bg1.on('touchend', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymrollup')
       }
     })
-    this.bg2.on('touchend', ()=>{
+    this.bg2.on('touchend', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymrollup')
       }
     })
-    this.bg1.on('touchcancel', ()=>{
+    this.bg1.on('touchcancel', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymrollup')
       }
     })
-    this.bg2.on('touchcancel', ()=>{
+    this.bg2.on('touchcancel', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymrollup')
       }
@@ -114,17 +114,27 @@ cc.Class({
   update (dt) {
     this.mainCamera.x = this.ym.x
     this.mainCamera.y = 0
+
+    if (this.bg1.x + 1600 < this.ym.x) {
+      this.bg1.x += 3200
+    }
+    if (this.bg2.x + 1600 < this.ym.x) {
+      this.bg2.x += 3200
+    }
+
+    if (this.ym.y < -240) {
+      this.gameover()
+    }
   },
 
   generateObject () {
     if (!this.isGameOver) {
       let obj
-      if (Math.random() > 0.3) {
+      if (Math.random() > 0.2) {
         obj = cc.instantiate(this.starPrefab)
       } else {
         obj = cc.instantiate(this.monsterPrefab)
       }
-      //console.log(this.node)
       this.node.addChild(obj)
       let pos = this.generatePosition()
       if (pos !== null) {
@@ -150,9 +160,9 @@ cc.Class({
   },
 
   generatePosition () {
-    let x = this.fixedDeltaX + this.node.getChildByName('ym').x
+    let x = this.fixedDeltaX + this.ym.x
     let y = this.minY + (this.maxY - this.minY) * Math.random()
-    if (x < this.lastGenerateX + this.fixedDeltaX) {
+    if (x < this.lastGenerateX + this.node.width / 2) {
       return null
     }
     this.lastGenerateX = x
@@ -163,7 +173,7 @@ cc.Class({
     return this.minTimeInterval + (this.maxTimeInterval - this.minTimeInterval) * Math.random()
   },
 
-  restartGame() {
+  restartGame () {
     cc.director.loadScene('game')
   }
 })
