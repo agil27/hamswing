@@ -252,6 +252,7 @@ cc.Class({
     // cc.log('upperbound: ' + cloudRangeX.upperbound)
     // cc.log('last: ' + this.lastCloudX)
     let speed = this.ym.getComponent(cc.RigidBody).linearVelocity.x
+    cc.log(speed)
     this.updateCloudsInLayer(this.fasterLayer, speed * 1.5, cloudRangeX)
     this.updateCloudsInLayer(this.slowerLayer, speed * 0.5, cloudRangeX)
     // cc.log('===============================')
