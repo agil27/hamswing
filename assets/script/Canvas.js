@@ -22,6 +22,21 @@ cc.Class({
       type: cc.Prefab
     },
 
+    cloud0Prefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
+    cloud1Prefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
+    cloud2Prefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
     minY: -150,
     maxY: 250,
     generateDistance: 1500,
@@ -31,6 +46,7 @@ cc.Class({
     maxTimeInterval: 100,
 
     lastGenerateX: 0,
+    lastCloudX: 0,
 
     score: 0,
 
@@ -55,6 +71,16 @@ cc.Class({
     },
 
     panel: {
+      default: null,
+      type: cc.Node
+    },
+
+    fasterLayer: {
+      default: null,
+      type: cc.Node
+    },
+
+    slowerLayer: {
       default: null,
       type: cc.Node
     },
@@ -112,6 +138,7 @@ cc.Class({
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
     this.lastGenerateX = this.ym.x + this.node.width
+    this.lastCloudX = this.ym.x + this.node.width + Math.random() * 1000
   },
 
   update (dt) {
@@ -130,6 +157,8 @@ cc.Class({
     if (this.ym.y < -240 && !this.isGameOver) {
       this.gameover()
     }
+
+    this.updateClouds()
   },
 
   generateObject () {
@@ -140,9 +169,9 @@ cc.Class({
       } else {
         obj = cc.instantiate(this.monsterPrefab)
       }
-      this.node.addChild(obj)
       let pos = this.generatePosition()
       if (pos !== null) {
+        this.node.addChild(obj)
         obj.setPosition(pos)
       }
       let timeInterval = this.generateInterval()
@@ -180,5 +209,66 @@ cc.Class({
 
   restartGame () {
     cc.director.loadScene('game')
+  },
+
+  generateCloud () {
+    if (!this.isGameOver) {
+      let cloud
+      let typeRand = Math.random()
+      if (typeRand > 0.6) {
+        cloud = cc.instantiate(this.cloud0Prefab)
+      } else if (typeRand > 0.2) {
+        cloud = cc.instantiate(this.cloud1Prefab)
+      } else {
+        cloud = cc.instantiate(this.cloud2Prefab)
+      }
+      let layerRand = Math.random()
+      let layer
+      if (layerRand > 0.6) {
+        layer = this.fasterLayer
+      } else {
+        layer = this.slowerLayer
+      }
+      layer.addChild(cloud)
+      cloud.setPosition(this.generateCloudPosition(layer.y))
+    }
+  },
+
+  generateCloudPosition (biasY) {
+    let cloudX = this.lastCloudX + (Math.random() + 1) * 1500
+    let yMin = 80
+    let yMax = 300
+    let cloudY = yMin + (yMax - yMin) * Math.random()
+    this.lastCloudX = cloudX
+    return cc.v2(cloudX, cloudY - biasY)
+  },
+
+  updateClouds () {
+    let cloudRangeX = {
+      lowerbound: this.ym.x - this.node.width,
+      upperbound: this.ym.x + this.node.width
+    }
+    // cc.log('lowerbound: ' + cloudRangeX.lowerbound)
+    // cc.log('upperbound: ' + cloudRangeX.upperbound)
+    // cc.log('last: ' + this.lastCloudX)
+    let speed = this.ym.getComponent(cc.RigidBody).linearVelocity.x
+    this.updateCloudsInLayer(this.fasterLayer, speed * 1.5, cloudRangeX)
+    this.updateCloudsInLayer(this.slowerLayer, speed * 0.5, cloudRangeX)
+    // cc.log('===============================')
+    if (this.lastCloudX < cloudRangeX.upperbound) {
+      this.generateCloud()
+    }
+  },
+
+  updateCloudsInLayer (layer, speed, rangeX) {
+    let clouds = layer.children
+    for (let c of clouds) {
+      // cc.log(c.x)
+      if (c.x < rangeX.lowerbound) {
+        c.destroy()
+      } else {
+        // c.x += speed
+      }
+    }
   }
 })
