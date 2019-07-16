@@ -142,7 +142,7 @@ cc.Class({
   },
 
   update (dt) {
-    this.mainCamera.x = this.ym.x + 400
+    this.mainCamera.x = this.ym.x + 360
     this.mainCamera.y = 0
 
     if (this.bg1.x + 1600 < this.mainCamera.x) {
