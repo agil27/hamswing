@@ -1,7 +1,7 @@
 {
   "ver": "1.2.4",
   "uuid": "1b6cb382-5a9a-4634-8e87-644670c0a6aa",
-  "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+  "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
   "size": {
     "width": 1150,
     "height": 199
@@ -11,7 +11,7 @@
     "game-star_01.png": {
       "ver": "1.0.4",
       "uuid": "20e039a8-f2f7-4bc1-9c32-a92a0aec4b4f",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -33,7 +33,7 @@
     "game-star_02.png": {
       "ver": "1.0.4",
       "uuid": "cea598fe-bab6-435d-aa5e-283175c02254",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -55,7 +55,7 @@
     "game-star_03.png": {
       "ver": "1.0.4",
       "uuid": "a82543f3-46b5-4e7d-80ef-38f972bdb66d",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -77,7 +77,7 @@
     "game-star_04.png": {
       "ver": "1.0.4",
       "uuid": "7752f6a6-d8f9-4cb0-88d9-21bf52ef273a",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -99,7 +99,7 @@
     "game-star_05.png": {
       "ver": "1.0.4",
       "uuid": "9f3f2dd7-0442-4461-b87b-c3f6bfe6ecab",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -121,7 +121,7 @@
     "game-star_06.png": {
       "ver": "1.0.4",
       "uuid": "8ee68456-7529-4552-85d9-6facfd3ae1d7",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -143,7 +143,7 @@
     "game-star_07.png": {
       "ver": "1.0.4",
       "uuid": "6c458804-2172-49b9-b37b-833f44b09626",
-      "rawTextureUuid": "5f63ae20-4dd3-4340-a608-73b6a71a18ab",
+      "rawTextureUuid": "0cbb2476-bd05-4f45-bbb1-4db5a8ebb4a9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

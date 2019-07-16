@@ -3,7 +3,7 @@
   "_name": "starAnim",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 1.0166666666666666,
+  "_duration": 0.3333333333333333,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -12,45 +12,45 @@
       "cc.Sprite": {
         "spriteFrame": [
           {
-            "frame": 0.05,
+            "frame": 0.016666666666666666,
             "value": {
               "__uuid__": "20e039a8-f2f7-4bc1-9c32-a92a0aec4b4f"
             }
           },
           {
-            "frame": 0.18333333333333332,
+            "frame": 0.06666666666666667,
             "value": {
               "__uuid__": "cea598fe-bab6-435d-aa5e-283175c02254"
             }
           },
           {
-            "frame": 0.3333333333333333,
+            "frame": 0.11666666666666667,
             "value": {
               "__uuid__": "a82543f3-46b5-4e7d-80ef-38f972bdb66d"
             }
           },
           {
-            "frame": 0.5,
+            "frame": 0.16666666666666666,
             "value": {
               "__uuid__": "7752f6a6-d8f9-4cb0-88d9-21bf52ef273a"
             }
           },
           {
-            "frame": 0.6666666666666666,
+            "frame": 0.21666666666666667,
             "value": {
               "__uuid__": "9f3f2dd7-0442-4461-b87b-c3f6bfe6ecab"
             }
           },
           {
-            "frame": 0.8333333333333334,
+            "frame": 0.26666666666666666,
             "value": {
               "__uuid__": "8ee68456-7529-4552-85d9-6facfd3ae1d7"
             }
           },
           {
-            "frame": 1,
+            "frame": 0.31666666666666665,
             "value": {
-              "__uuid__": "20e039a8-f2f7-4bc1-9c32-a92a0aec4b4f"
+              "__uuid__": "6c458804-2172-49b9-b37b-833f44b09626"
             }
           }
         ]

@@ -42,8 +42,8 @@ cc.Class({
     generateDistance: 1500,
     generateDeltaX: 50,
 
-    minTimeInterval: 25,
-    maxTimeInterval: 100,
+    minTimeInterval: 5,
+    maxTimeInterval: 50,
 
     lastGenerateX: 0,
     lastCloudX: 0,
@@ -226,8 +226,10 @@ cc.Class({
       let layer
       if (layerRand > 0.6) {
         layer = this.fasterLayer
+        cloud.opacity = 255
       } else {
         layer = this.slowerLayer
+        cloud.opacity = 150
       }
       layer.addChild(cloud)
       cloud.setPosition(this.generateCloudPosition(layer.y))
@@ -235,7 +237,7 @@ cc.Class({
   },
 
   generateCloudPosition (biasY) {
-    let cloudX = this.lastCloudX + (Math.random() + 1) * 1500
+    let cloudX = this.lastCloudX + (Math.random() + 1) * 500
     let yMin = 80
     let yMax = 300
     let cloudY = yMin + (yMax - yMin) * Math.random()
@@ -248,14 +250,10 @@ cc.Class({
       lowerbound: this.ym.x - this.node.width,
       upperbound: this.ym.x + this.node.width
     }
-    // cc.log('lowerbound: ' + cloudRangeX.lowerbound)
-    // cc.log('upperbound: ' + cloudRangeX.upperbound)
-    // cc.log('last: ' + this.lastCloudX)
+
     let speed = this.ym.getComponent(cc.RigidBody).linearVelocity.x
-    cc.log(speed)
-    this.updateCloudsInLayer(this.fasterLayer, speed * 1.5, cloudRangeX)
-    this.updateCloudsInLayer(this.slowerLayer, speed * 0.5, cloudRangeX)
-    // cc.log('===============================')
+    this.updateCloudsInLayer(this.fasterLayer, speed * 0.001, cloudRangeX)
+    this.updateCloudsInLayer(this.slowerLayer, speed * 0.005, cloudRangeX)
     if (this.lastCloudX < cloudRangeX.upperbound) {
       this.generateCloud()
     }
@@ -264,11 +262,10 @@ cc.Class({
   updateCloudsInLayer (layer, speed, rangeX) {
     let clouds = layer.children
     for (let c of clouds) {
-      // cc.log(c.x)
       if (c.x < rangeX.lowerbound) {
         c.destroy()
       } else {
-        // c.x += speed
+        c.x -= speed
       }
     }
   }
