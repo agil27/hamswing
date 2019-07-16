@@ -30,6 +30,10 @@ cc.Class({
       default: null,
       type: cc.Node
     },
+    claw: {
+      default: null,
+      type: cc.Node
+    },
     attachPointInWorldSpace: {
       default: new cc.Vec2()
     },
@@ -81,6 +85,8 @@ cc.Class({
     this.node.width = this.curLength
     this.node.position = this.ym.position
     this.node.rotation = angle
+
+    this.claw.x = this.node.width - this.claw.width / 2 + 1
   },
 
   lengthen () {

@@ -122,7 +122,7 @@ cc.Class({
       this.bg2.x += 3200
     }
 
-    if (this.ym.y < -240) {
+    if (this.ym.y < -240 && !this.isGameOver) {
       this.gameover()
     }
   },
