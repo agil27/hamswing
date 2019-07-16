@@ -24,10 +24,11 @@ cc.Class({
 
     minY: -150,
     maxY: 250,
-    fixedDeltaX: 500,
+    generateDistance: 1500,
+    generateDeltaX: 50,
 
-    minTimeInterval: 300,
-    maxTimeInterval: 1000,
+    minTimeInterval: 25,
+    maxTimeInterval: 100,
 
     lastGenerateX: 0,
 
@@ -70,6 +71,8 @@ cc.Class({
     this.ym = this.node.getChildByName('ym')
     this.bg1 = this.node.getChildByName('bg1')
     this.bg2 = this.node.getChildByName('bg2')
+    this.bgc0 = this.node.getChildByName('bgcloud0')
+    this.bgc1 = this.node.getChildByName('bgcloud1')
     this.panel = this.node.getChildByName('overPanel')
     this.isGameOver = false
 
@@ -108,7 +111,7 @@ cc.Class({
   start () {
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
-    this.lastGenerateX = this.ym.x + this.fixedDeltaX
+    this.lastGenerateX = this.ym.x + this.node.width
   },
 
   update (dt) {
@@ -117,9 +120,11 @@ cc.Class({
 
     if (this.bg1.x + 1600 < this.mainCamera.x) {
       this.bg1.x += 3200
+      this.bgc1.x += 3200
     }
     if (this.bg2.x + 1600 < this.mainCamera.x) {
       this.bg2.x += 3200
+      this.bgc0.x += 3200
     }
 
     if (this.ym.y < -240 && !this.isGameOver) {
@@ -130,7 +135,7 @@ cc.Class({
   generateObject () {
     if (!this.isGameOver) {
       let obj
-      if (Math.random() > 0.2) {
+      if (Math.random() > 0.1) {
         obj = cc.instantiate(this.starPrefab)
       } else {
         obj = cc.instantiate(this.monsterPrefab)
@@ -160,9 +165,9 @@ cc.Class({
   },
 
   generatePosition () {
-    let x = this.fixedDeltaX + this.ym.x
+    let x = this.generateDistance + this.ym.x
     let y = this.minY + (this.maxY - this.minY) * Math.random()
-    if (x < this.lastGenerateX + this.node.width / 2) {
+    if (x < this.lastGenerateX + this.generateDeltaX) {
       return null
     }
     this.lastGenerateX = x
