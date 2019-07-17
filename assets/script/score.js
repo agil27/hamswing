@@ -29,6 +29,7 @@ cc.Class({
 
     this.label = this.node.getComponent(cc.Label)
     this.ym = this.node.parent.getChildByName('ym')
+    cc.game.on('gameover', this.moveToMiddle, this)
   },
 
   start () {
@@ -37,10 +38,17 @@ cc.Class({
 
   update (dt) {
     this.node.x = this.node.parent.getChildByName('Main Camera').x
-    this.node.y = 100
   },
 
   updateScore (score) {
     this.label.string = score + ''
-  }
+  },
+
+  moveToMiddle () {
+    console.log('move')
+    //this.node.y = -20
+    //console.log(this.node.y)
+    //let moveAction = cc.moveBy(1000, cc.v2(0, -120)).easing(cc.easeCubicActionIn())
+    //this.node.runAction(moveAction)
+  },
 })

@@ -75,6 +75,11 @@ cc.Class({
       type: cc.Node
     },
 
+    scoreBoard: {
+      default: null,
+      type: cc.Node
+    },
+
     fasterLayer: {
       default: null,
       type: cc.Node
@@ -90,7 +95,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onEnable () {
+  onLoad () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
     this.mainCamera = this.node.getChildByName('Main Camera')
@@ -100,6 +105,7 @@ cc.Class({
     this.bgc0 = this.node.getChildByName('bgcloud0')
     this.bgc1 = this.node.getChildByName('bgcloud1')
     this.panel = this.node.getChildByName('overPanel')
+    this.scoreBoard = this.node.getChildByName('score')
     this.isGameOver = false
 
     this.bg1.on('touchstart', () => {
@@ -185,6 +191,7 @@ cc.Class({
     this.ym.active = false
     this.isGameOver = true
     this.panel.active = true
+    this.scoreBoard.y = -20
     console.log('gameover!')
   },
 
