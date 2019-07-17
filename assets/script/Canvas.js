@@ -153,6 +153,7 @@ cc.Class({
     this.lastCloudX = this.ym.x + this.node.width + Math.random() * 1000
     this.lastYmX = this.ym.x
     setInterval(this.updateScore.bind(this), 100)
+    setInterval(this.clearObjsOutOfScreen.bind(this), 1000)
   },
 
   update (dt) {
@@ -203,7 +204,6 @@ cc.Class({
     this.isGameOver = true
     this.panel.active = true
     this.scoreBoard.y = -20
-    console.log('gameover!')
   },
 
   touchStar () {
@@ -302,18 +302,29 @@ cc.Class({
 
   updateScore () {
     if (this.ym && this.ym.x > this.lastYmX) {
-      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 100)
+      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 10)
       this.score += deltaX * this.scoreFactor
       this.lastYmX = this.ym.x
       cc.game.emit('updatescore', this.score)
     }
   },
 
-  clearObjsOutOfScreen (range) {
+  clearObjsOutOfScreen () {
+    if (this.ym) {
+      let range = {
+        lowerbound: null,
+        upperbound: this.ym.x - this.node.width / 2
+      }
+      this.clearObjsInRange(range)
+    }
+  },
+
+  clearObjsInRange (range) {
     let objs = this.objsLayer.children
     for (let o of objs) {
-      if (objs.x < range.upperbound) {
-
+      let x = o.x + this.objsLayer.x
+      if (x < range.upperbound && (!range.lowerbound || x > range.lowerbound)) {
+        o.destroy()
       }
     }
   }
