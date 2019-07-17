@@ -23,13 +23,13 @@ cc.Class({
 
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
-
+    
     /*
-    let scaleUp = cc.scaleBy(200, 2)
-    let scaleDown = cc.scaleBy(200, 0.5)
-    let ymAction = cc.repeatForever(cc.sequence(scaleUp, scaleDown))
+    let rotateAction = cc.rotateBy(4, -360);
+    let ymAction = cc.repeatForever(rotateAction)
     this.node.runAction(ymAction)
     */
+   
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
     cc.game.on('detach', this.tangentAccelerate, this)
@@ -51,7 +51,7 @@ cc.Class({
   rebounce () {
     let v = this.node.getComponent(cc.RigidBody).linearVelocity
     if (this.node.y > this.ceiling.y) {
-      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -v.y)
+      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, - 0.7 * v.y)
     }
   },
 
@@ -71,6 +71,7 @@ cc.Class({
 
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
+      other.node.stopAllActions()
       other.node.getComponent(cc.Animation).play('monster die')
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
@@ -84,9 +85,10 @@ cc.Class({
       //Acceleration  
       let rigidbody = this.node.getComponent(cc.RigidBody)
       let v = rigidbody.linearVelocity
-      rigidbody.linearVelocity = cc.v2(v.x * 1.3, v.y * 1.3)
+      rigidbody.linearVelocity = cc.v2(v.x * 1.1, v.y * 1.1)
       cc.game.emit('touchstar')
     } else if (other.node.name === 'ghost') {
+      other.node.stopAllActions()
       other.node.getComponent(cc.Animation).play('ghostDie')
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)

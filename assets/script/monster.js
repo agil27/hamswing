@@ -12,38 +12,51 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    moveDuration: 3, //secs
+    moveDuration: 2, //secs
     moveDistance: 100,
-    score: {
-      default: null,
-      type: cc.Node
-    }
+    floatAction: null,
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    /*
-    this.score = this.node.parent.getChildByName('score')
-    if (score > 2000) {
-      this.difficultify(score, Math.random)
-    }
-    */
-    // cc.director.getCollisionManager().enabled = true
+    this.difficultify()
+    //cc.director.getCollisionManager().enabled = true
   },
 
-  generateFloatingAction() {
-    let moveUp = cc.moveBy(this.moveDuration, cc.v2(0, this.moveDistance)).easing(cc.easeCubicActionOut())
-    let moveDown = cc.moveBy(this.moveDuration, cc.v2(0, -this.moveDistance)).easing(cc.easeCubicActionOut())
-    return cc.repeatForever(cc.sequence(moveUp, moveDown))
+  generateFloatingAction(direction) {
+    let moveUp = cc.moveBy(this.moveDuration, cc.v2(0, this.moveDistance))
+    let moveDown = cc.moveBy(this.moveDuration, cc.v2(0, -this.moveDistance))
+    if (direction === 0) {
+      return cc.repeatForever(cc.sequence(moveUp, moveDown))
+    }
+    else {
+      return cc.repeatForever(cc.sequence(moveDown, moveUp))
+    }
   },
 
-  difficultify(score, rand) {
-    /*
-    if (score < 5000 && rand > 0.3) {
-      this.floatAction
-    }
-    */
+  /*
+  generateDribbleAction() {
+    let moveLeft = cc.moveBy(this.moveDuration, cc.v2(-this.distanceX, this.distanceY))
+    let moveRight = cc.moveBy(this.moveDuration, cc.v2(this.distanceX, -this.distanceY))
+    let move = cc.sequence(moveLeft, moveRight)
+    return cc.repeatForever(move)
+  },
+  */
+
+  difficultify() {
+    let rand = Math.random()
+    if (this.node !== null) {
+      if ( rand > 0.5) {
+        this.floatAction = this.generateFloatingAction()
+        if (rand > 0.7) {
+          this.node.runAction(this.floatAction, 0)
+        }
+        else {
+          this.node.runAction(this.floatAction, 1)
+        }
+      }
+    } 
   },
 
   start () {
@@ -52,5 +65,9 @@ cc.Class({
   onCollideWithHero() {
     
   },
+
+  onDestroy() {
+    cc.game.off('updatescore', this.difficultify)
+  }
   // update (dt) {},
 })

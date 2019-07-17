@@ -12,36 +12,33 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        scaleDuration: 0.2, //secs
+        scaleFactorUp: 2,
+        scaleFactorDown: 0.5,
+        scaleAction: null,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
-
+    onLoad () {
+        this.difficultify()
+        //cc.director.getCollisionManager().enabled = true
+    },
+    
+    generateScaleAction () {
+        let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleFactorUp)
+        let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleFactorDown)
+        return cc.repeatForever(cc.sequence(scaleUp, scaleDown))
     },
 
-    onCollideWithHero () {
-        this.node.getComponent(cc.Animation).play('ghostDie')
-        let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
-        let fadeout = cc.fadeOut(1.5)
-        this.node.runAction(cc.sequence(scaleAction, fadeout))
-    }
+    difficultify(score) {
+        let rand = Math.random()
+        if (this.node !== null) {
+            this.scaleAction = this.generateScaleAction()
+            if (rand > 0.9) {
+                this.node.runAction(this.scaleAction)
+            }
+        }   
+    },
     // update (dt) {},
 });

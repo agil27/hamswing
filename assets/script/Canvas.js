@@ -182,9 +182,9 @@ cc.Class({
       if (rand > 0.6) {
         obj = cc.instantiate(this.starPrefab)
       } else if (rand > 0.3) {
-        obj = cc.instantiate(this.monsterPrefab)
-      } else {
         obj = cc.instantiate(this.ghostPrefab)
+      } else {
+        obj = cc.instantiate(this.monsterPrefab)
       }
       let pos = this.generatePosition()
       if (pos !== null) {

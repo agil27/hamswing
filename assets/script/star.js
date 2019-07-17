@@ -38,10 +38,7 @@ cc.Class({
     },
 
     onCollideWithHero () { 
-        let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
-        let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
-        let fadeout = cc.fadeOut(0.1)
-        this.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
+        
     }
     // update (dt) {},
 });
