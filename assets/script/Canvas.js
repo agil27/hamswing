@@ -241,6 +241,10 @@ cc.Class({
     cc.director.loadScene('game')
   },
 
+  toMenu () {
+    cc.director.loadScene('start')
+  },
+
   generateCloud () {
     if (!this.isGameOver) {
       let cloud
