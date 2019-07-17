@@ -73,6 +73,9 @@ cc.Class({
       let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(0.1)
       other.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
+      let rigidbody = this.node.getComponent(cc.RigidBody)
+      let v = rigidbody.linearVelocity
+      rigidbody.linearVelocity = cc.v2(v.x * 1.3, v.y * 1.3)
       setTimeout(() => {
         if (other) {
           other.node.active = false

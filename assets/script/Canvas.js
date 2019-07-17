@@ -91,6 +91,11 @@ cc.Class({
       type: cc.Node
     },
 
+    objsLayer: {
+      default: null,
+      type: cc.Node
+    },
+
     isGameOver: false
   },
 
@@ -183,7 +188,7 @@ cc.Class({
       }
       let pos = this.generatePosition()
       if (pos !== null) {
-        this.node.addChild(obj)
+        this.objsLayer.addChild(obj)
         obj.setPosition(pos)
       }
       let timeInterval = this.generateInterval()
@@ -217,8 +222,8 @@ cc.Class({
     let maxY = 250
     let generateDistance = 1500
     let generateDeltaX = 200
-    let x = generateDistance + this.ym.x
-    let y = minY + (maxY - minY) * Math.random()
+    let x = generateDistance + this.ym.x - this.objsLayer.x
+    let y = minY + (maxY - minY) * Math.random() - this.objsLayer.y
     if (x < this.lastGenerateX + generateDeltaX) {
       return null
     }
@@ -257,17 +262,17 @@ cc.Class({
         cloud.opacity = 150
       }
       layer.addChild(cloud)
-      cloud.setPosition(this.generateCloudPosition(layer.y))
+      cloud.setPosition(this.generateCloudPosition(layer.position))
     }
   },
 
-  generateCloudPosition (biasY) {
+  generateCloudPosition (bias) {
     let cloudX = this.lastCloudX + (Math.random() + 1) * 500
     let yMin = 80
     let yMax = 300
     let cloudY = yMin + (yMax - yMin) * Math.random()
     this.lastCloudX = cloudX
-    return cc.v2(cloudX, cloudY - biasY)
+    return cc.v2(cloudX - bias.x, cloudY - bias.y)
   },
 
   updateClouds () {
@@ -297,10 +302,17 @@ cc.Class({
 
   updateScore () {
     if (this.ym && this.ym.x > this.lastYmX) {
-      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 10)
+      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 100)
       this.score += deltaX * this.scoreFactor
       this.lastYmX = this.ym.x
       cc.game.emit('updatescore', this.score)
+    }
+  },
+
+  clearObjsOutOfScreen (range) {
+    let objs = this.objsLayer.children
+    for (let o of objs) {
+
     }
   }
 })
