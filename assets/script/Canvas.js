@@ -17,6 +17,11 @@ cc.Class({
       type: cc.Prefab
     },
 
+    ghostPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
     starPrefab: {
       default: null,
       type: cc.Prefab
@@ -168,10 +173,13 @@ cc.Class({
   generateObject () {
     if (!this.isGameOver) {
       let obj
-      if (Math.random() > 0.5) {
+      let rand = Math.random()
+      if (rand > 0.6) {
         obj = cc.instantiate(this.starPrefab)
-      } else {
+      } else if (rand > 0.3) {
         obj = cc.instantiate(this.monsterPrefab)
+      } else {
+        obj = cc.instantiate(this.ghostPrefab)
       }
       let pos = this.generatePosition()
       if (pos !== null) {

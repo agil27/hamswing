@@ -79,6 +79,14 @@ cc.Class({
         }
         cc.game.emit('touchstar')
       }, 100)
+    } else if (other.node.name === 'ghost') {
+      other.node.getComponent(cc.Animation).play('ghost die')
+      let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
+      let fadeout = cc.fadeOut(1.5)
+      other.node.runAction(cc.sequence(scaleAction, fadeout))
+      setTimeout(() => {
+        cc.game.emit('gameover')
+      }, 0)
     }
   }
 })

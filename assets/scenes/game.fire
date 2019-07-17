@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3578125,
-      "y": 0.3578125,
+      "x": 0.3596354484558105,
+      "y": 0.3596354484558105,
       "z": 1
     },
     "_quat": {
@@ -1996,6 +1996,9 @@
     "monsterPrefab": {
       "__uuid__": "f075a49b-ceb3-4c98-8394-06fcf82bbc8c"
     },
+    "ghostPrefab": {
+      "__uuid__": "8296d1c3-30fb-4414-a0c2-477195e2e3a4"
+    },
     "starPrefab": {
       "__uuid__": "c7262a65-0115-43b5-ba5d-f433b7246b41"
     },
@@ -2008,15 +2011,12 @@
     "cloud2Prefab": {
       "__uuid__": "ea038c7e-12c6-48f3-9e41-248683b7f39c"
     },
-    "minY": -150,
-    "maxY": 250,
-    "generateDistance": 1500,
-    "generateDeltaX": 300,
-    "minTimeInterval": 1000,
-    "maxTimeInterval": 3000,
     "lastGenerateX": 0,
     "lastCloudX": 0,
+    "lastYmX": 0,
     "score": 0,
+    "scoreFactor": 1,
+    "doubleStateTimer": null,
     "ym": {
       "__id__": 15
     },
