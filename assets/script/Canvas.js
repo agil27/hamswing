@@ -194,8 +194,14 @@ cc.Class({
   },
 
   touchStar () {
-    ++this.score
-    cc.game.emit('updatescore', this.score)
+    this.scoreFactor = 2
+    if (this.doubleStateTimer) {
+      clearTimeout(this.doubleStateTimer)
+    }
+    this.doubleStateTimer = setTimeout(() => {
+      this.scoreFactor = 1
+      this.doubleStateTimer = null
+    }, 3000)
   },
 
   generatePosition () {
