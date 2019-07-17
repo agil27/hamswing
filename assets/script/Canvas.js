@@ -170,7 +170,7 @@ cc.Class({
   generateObject () {
     if (!this.isGameOver) {
       let obj
-      if (Math.random() > 0.1) {
+      if (Math.random() > 0.5) {
         obj = cc.instantiate(this.starPrefab)
       } else {
         obj = cc.instantiate(this.monsterPrefab)

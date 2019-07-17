@@ -24,6 +24,12 @@ cc.Class({
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
 
+    /*
+    let scaleUp = cc.scaleBy(200, 2)
+    let scaleDown = cc.scaleBy(200, 0.5)
+    let ymAction = cc.repeatForever(cc.sequence(scaleUp, scaleDown))
+    this.node.runAction(ymAction)
+    */
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
   },
@@ -55,14 +61,25 @@ cc.Class({
 
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
+      other.node.getComponent(cc.Animation).play('monster die')
+      /*
+      let jumpAction = cc.moveBy(500, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
+      let scaleAction = cc.jumpBy(500, 0.1).easing(cc.easeCubicActionOut())
+      other.node.runAction(cc.spawn(jumpAction, scaleAction))
+      */
       setTimeout(() => {
-        
-      }, 0.2);
-      other.node.destroy()
-      cc.game.emit('gameover')
+        //other.node.destroy()
+        cc.game.emit('gameover')
+      }, 0);
     } else if (other.node.name === 'star') {
-      other.node.destroy()
-      cc.game.emit('touchstar')
+      //let jumpAction = cc.moveBy(60, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
+      //let scaleAction = cc.scaleBy(60, 2)
+      //other.node.runAction(scaleAction)
+      other.node.getComponent(cc.Animation).play('starCollect')
+      setTimeout((() => {
+        other.node.destroy()
+        cc.game.emit('touchstar')
+      }).bind(this), 40)
     }
   }
 })
