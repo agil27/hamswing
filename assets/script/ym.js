@@ -74,7 +74,9 @@ cc.Class({
       let fadeout = cc.fadeOut(0.1)
       other.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
       setTimeout(() => {
-        other.node.active = false
+        if (other) {
+          other.node.active = false
+        }
         cc.game.emit('touchstar')
       }, 100)
     }

@@ -37,14 +37,6 @@ cc.Class({
       type: cc.Prefab
     },
 
-    minY: -150,
-    maxY: 250,
-    generateDistance: 1500,
-    generateDeltaX: 50,
-
-    minTimeInterval: 5,
-    maxTimeInterval: 50,
-
     lastGenerateX: 0,
     lastCloudX: 0,
 
@@ -201,9 +193,13 @@ cc.Class({
   },
 
   generatePosition () {
-    let x = this.generateDistance + this.ym.x
-    let y = this.minY + (this.maxY - this.minY) * Math.random()
-    if (x < this.lastGenerateX + this.generateDeltaX) {
+    let minY = -150
+    let maxY = 250
+    let generateDistance = 1500
+    let generateDeltaX = 200
+    let x = generateDistance + this.ym.x
+    let y = minY + (maxY - minY) * Math.random()
+    if (x < this.lastGenerateX + generateDeltaX) {
       return null
     }
     this.lastGenerateX = x
@@ -211,7 +207,9 @@ cc.Class({
   },
 
   generateInterval () {
-    return this.minTimeInterval + (this.maxTimeInterval - this.minTimeInterval) * Math.random()
+    let minTimeInterval = 1000
+    let maxTimeInterval = 3000
+    return minTimeInterval + (maxTimeInterval - minTimeInterval) * Math.random()
   },
 
   restartGame () {
