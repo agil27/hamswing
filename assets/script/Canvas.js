@@ -101,7 +101,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {
+  onLoad () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
     this.mainCamera = this.node.getChildByName('Main Camera')
@@ -146,7 +146,7 @@ cc.Class({
     })
   },
 
-  start() {
+  start () {
     setTimeout(this.generateObject.bind(this), 2000)
     cc.game.emit('updatescore', this.score)
     this.lastGenerateX = this.ym.x + this.node.width
@@ -155,7 +155,7 @@ cc.Class({
     setInterval(this.updateScore.bind(this), 100)
   },
 
-  update(dt) {
+  update (dt) {
     this.mainCamera.x = this.ym.x + 360
     this.mainCamera.y = 0
 
@@ -175,7 +175,7 @@ cc.Class({
     this.updateClouds()
   },
 
-  generateObject() {
+  generateObject () {
     if (!this.isGameOver) {
       let obj
       let rand = Math.random()
@@ -196,7 +196,7 @@ cc.Class({
     }
   },
 
-  gameover() {
+  gameover () {
     this.node.getChildByName('tongue').active = false
     this.ym.enabled = false
     this.ym.active = false
@@ -206,7 +206,7 @@ cc.Class({
     console.log('gameover!')
   },
 
-  touchStar() {
+  touchStar () {
     this.scoreFactor = 2
     if (this.doubleStateTimer) {
       clearTimeout(this.doubleStateTimer)
@@ -217,11 +217,11 @@ cc.Class({
     }, 3000)
   },
 
-  generatePosition() {
+  generatePosition () {
     let minY = -150
     let maxY = 250
     let generateDistance = 1500
-    let generateDeltaX = 200
+    let generateDeltaX = 150
     let x = generateDistance + this.ym.x - this.objsLayer.x
     let y = minY + (maxY - minY) * Math.random() - this.objsLayer.y
     if (x < this.lastGenerateX + generateDeltaX) {
@@ -231,17 +231,17 @@ cc.Class({
     return cc.v2(x, y)
   },
 
-  generateInterval() {
+  generateInterval () {
     let minTimeInterval = 1000
-    let maxTimeInterval = 3000
+    let maxTimeInterval = 2500
     return minTimeInterval + (maxTimeInterval - minTimeInterval) * Math.random()
   },
 
-  restartGame() {
+  restartGame () {
     cc.director.loadScene('game')
   },
 
-  generateCloud() {
+  generateCloud () {
     if (!this.isGameOver) {
       let cloud
       let typeRand = Math.random()
@@ -266,7 +266,7 @@ cc.Class({
     }
   },
 
-  generateCloudPosition(bias) {
+  generateCloudPosition (bias) {
     let cloudX = this.lastCloudX + (Math.random() + 1) * 500
     let yMin = 80
     let yMax = 300
@@ -275,7 +275,7 @@ cc.Class({
     return cc.v2(cloudX - bias.x, cloudY - bias.y)
   },
 
-  updateClouds() {
+  updateClouds () {
     let cloudRangeX = {
       lowerbound: this.ym.x - this.node.width,
       upperbound: this.ym.x + this.node.width
@@ -289,7 +289,7 @@ cc.Class({
     }
   },
 
-  updateCloudsInLayer(layer, speed, rangeX) {
+  updateCloudsInLayer (layer, speed, rangeX) {
     let clouds = layer.children
     for (let c of clouds) {
       if (c.x < rangeX.lowerbound) {
@@ -300,7 +300,7 @@ cc.Class({
     }
   },
 
-  updateScore() {
+  updateScore () {
     if (this.ym && this.ym.x > this.lastYmX) {
       let deltaX = Math.floor((this.ym.x - this.lastYmX) / 100)
       this.score += deltaX * this.scoreFactor
@@ -309,10 +309,12 @@ cc.Class({
     }
   },
 
-  clearObjsOutOfScreen(range) {
+  clearObjsOutOfScreen (range) {
     let objs = this.objsLayer.children
     for (let o of objs) {
-      if (objs.x < range.upperbound)
+      if (objs.x < range.upperbound) {
+
+      }
     }
   }
 })
