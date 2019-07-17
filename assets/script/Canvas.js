@@ -302,7 +302,7 @@ cc.Class({
 
   updateScore () {
     if (this.ym && this.ym.x > this.lastYmX) {
-      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 100)
+      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 10)
       this.score += deltaX * this.scoreFactor
       this.lastYmX = this.ym.x
       cc.game.emit('updatescore', this.score)
