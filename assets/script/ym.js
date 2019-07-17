@@ -62,24 +62,21 @@ cc.Class({
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
       other.node.getComponent(cc.Animation).play('monster die')
-      /*
-      let jumpAction = cc.moveBy(500, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
-      let scaleAction = cc.jumpBy(500, 0.1).easing(cc.easeCubicActionOut())
-      other.node.runAction(cc.spawn(jumpAction, scaleAction))
-      */
+      let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
+      let fadeout = cc.fadeOut(1.5)
+      other.node.runAction(cc.sequence(scaleAction, fadeout))
       setTimeout(() => {
-        // other.node.destroy()
         cc.game.emit('gameover')
       }, 0)
     } else if (other.node.name === 'star') {
-      // let jumpAction = cc.moveBy(60, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
-      // let scaleAction = cc.scaleBy(60, 2)
-      // other.node.runAction(scaleAction)
-      other.node.getComponent(cc.Animation).play('starCollect')
-      setTimeout((() => {
-        other.node.destroy()
+      let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
+      let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
+      let fadeout = cc.fadeOut(0.1)
+      other.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
+      setTimeout(() => {
+        other.node.active = false
         cc.game.emit('touchstar')
-      }), 40)
+      }, 100)
     }
   }
 })
