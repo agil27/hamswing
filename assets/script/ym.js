@@ -68,18 +68,18 @@ cc.Class({
       other.node.runAction(cc.spawn(jumpAction, scaleAction))
       */
       setTimeout(() => {
-        //other.node.destroy()
+        // other.node.destroy()
         cc.game.emit('gameover')
-      }, 0);
+      }, 0)
     } else if (other.node.name === 'star') {
-      //let jumpAction = cc.moveBy(60, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
-      //let scaleAction = cc.scaleBy(60, 2)
-      //other.node.runAction(scaleAction)
+      // let jumpAction = cc.moveBy(60, cc.v2(0, 20)).easing(cc.easeCubicActionOut())
+      // let scaleAction = cc.scaleBy(60, 2)
+      // other.node.runAction(scaleAction)
       other.node.getComponent(cc.Animation).play('starCollect')
       setTimeout((() => {
         other.node.destroy()
         cc.game.emit('touchstar')
-      }).bind(this), 40)
+      }), 40)
     }
   }
 })
