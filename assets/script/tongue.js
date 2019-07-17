@@ -76,8 +76,7 @@ cc.Class({
     if (this.isShortening) {
       this.curLength -= this.shortenSpeed
       if (this.curLength < 0) {
-        let v = this.ym.getComponent(cc.RigidBody).linearVelocity
-        this.ym.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x + 100 * Math.sin(-this.toArc(angle)), v.y - 100 * Math.cos(-this.toArc(angle)))
+        cc.game.emit('detach', angle)
         this.curLength = 0
         this.isShortening = false
       }
@@ -136,5 +135,5 @@ cc.Class({
 
   toArc (ang) {
     return Math.PI * ang / 180
-  }
+  },
 })
