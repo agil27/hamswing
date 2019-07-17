@@ -39,8 +39,12 @@ cc.Class({
 
     lastGenerateX: 0,
     lastCloudX: 0,
+    lastYmX: 0,
 
     score: 0,
+    scoreFactor: 1,
+
+    doubleStateTimer: null,
 
     ym: {
       default: null,
@@ -137,6 +141,8 @@ cc.Class({
     cc.game.emit('updatescore', this.score)
     this.lastGenerateX = this.ym.x + this.node.width
     this.lastCloudX = this.ym.x + this.node.width + Math.random() * 1000
+    this.lastYmX = this.ym.x
+    setInterval(this.updateScore.bind(this), 100)
   },
 
   update (dt) {
@@ -272,6 +278,15 @@ cc.Class({
       } else {
         c.x -= speed
       }
+    }
+  },
+
+  updateScore () {
+    if (this.ym && this.ym.x > this.lastYmX) {
+      let deltaX = Math.floor((this.ym.x - this.lastYmX) / 10)
+      this.score += deltaX * this.scoreFactor
+      this.lastYmX = this.ym.x
+      cc.game.emit('updatescore', this.score)
     }
   }
 })
