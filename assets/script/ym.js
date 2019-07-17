@@ -32,6 +32,7 @@ cc.Class({
     */
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
+    cc.game.on('detach', this.tangentAccelerate, this)
   },
 
   start () {
@@ -39,9 +40,18 @@ cc.Class({
   },
 
   update (dt) {
+    this.rebounce()
+  },
+
+  tangentAccelerate (angle) {
+    let v = this.node.getComponent(cc.RigidBody).linearVelocity
+    this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x + 100 * Math.sin(-this.toArc(angle)), v.y - 100 * Math.cos(-this.toArc(angle)))
+  },
+
+  rebounce () {
     let v = this.node.getComponent(cc.RigidBody).linearVelocity
     if (this.node.y > this.ceiling.y) {
-      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -200)
+      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -v.y)
     }
   },
 
@@ -65,31 +75,27 @@ cc.Class({
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
       other.node.runAction(cc.sequence(scaleAction, fadeout))
-      setTimeout(() => {
-        cc.game.emit('gameover')
-      }, 0)
+      cc.game.emit('gameover')
     } else if (other.node.name === 'star') {
       let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
       let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(0.1)
       other.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
+      //Acceleration  
       let rigidbody = this.node.getComponent(cc.RigidBody)
       let v = rigidbody.linearVelocity
       rigidbody.linearVelocity = cc.v2(v.x * 1.3, v.y * 1.3)
-      setTimeout(() => {
-        if (other) {
-          other.node.active = false
-        }
-        cc.game.emit('touchstar')
-      }, 100)
+      cc.game.emit('touchstar')
     } else if (other.node.name === 'ghost') {
       other.node.getComponent(cc.Animation).play('ghostDie')
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
       other.node.runAction(cc.sequence(scaleAction, fadeout))
-      setTimeout(() => {
-        cc.game.emit('gameover')
-      }, 0)
+      cc.game.emit('gameover')
     }
-  }
+  },
+
+  toArc (ang) {
+    return Math.PI * ang / 180
+  },
 })
