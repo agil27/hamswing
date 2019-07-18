@@ -265,6 +265,7 @@ cc.Class({
     this.node.getChildByName('tongue').active = false
     this.ym.enabled = false
     this.ym.active = false
+    this.bonusText.active = false
     this.doubleScoreText.active = false
     this.invincibleText.active = false
     this.isGameOver = true
@@ -420,14 +421,16 @@ cc.Class({
 
   onKillMonster () {
     this.score += 100
-    if (this.bonusText.active === true) {
-      clearTimeout(this.bonusTimer)
-    }
-    this.bonusText.active = true
-    this.bonusText.scale = 0.1
-    this.bonusText.runAction(this.bonusAction)
-    this.bonusTimer = setTimeout(() => {
-      this.bonusText.active = false
-    }, this.bonusAppearanceTime)
+    if (this.bonusText) {
+      if (this.bonusText.active === true) {
+        clearTimeout(this.bonusTimer)
+      }
+      this.bonusText.active = true
+      this.bonusText.scale = 0.1
+      this.bonusText.runAction(this.bonusAction)
+      this.bonusTimer = setTimeout(() => {
+        this.bonusText.active = false
+      }, this.bonusAppearanceTime)
+    }   
   },
 })
