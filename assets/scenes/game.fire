@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7296875,
-      "y": 0.7296875,
+      "x": 0.3268229246139526,
+      "y": 0.3268229246139526,
       "z": 1
     },
     "_quat": {
@@ -800,6 +800,8 @@
     },
     "_enabled": true,
     "hanging": false,
+    "collectAction": null,
+    "invincible": false,
     "_id": "e9iP7Fbs1F1oIs9sFscT9c"
   },
   {
@@ -2439,6 +2441,9 @@
     },
     "cloud2Prefab": {
       "__uuid__": "ea038c7e-12c6-48f3-9e41-248683b7f39c"
+    },
+    "mushroomPrefab": {
+      "__uuid__": "737384f1-1ddc-48dd-a6d3-cae41ea7bf1d"
     },
     "lastGenerateX": 0,
     "lastCloudX": 0,

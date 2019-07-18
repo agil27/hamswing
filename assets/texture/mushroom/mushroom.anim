@@ -3,9 +3,9 @@
   "_name": "mushroom",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.35,
+  "_duration": 0.16666666666666666,
   "sample": 60,
-  "speed": 0.2,
+  "speed": 0.1,
   "wrapMode": "2",
   "curveData": {
     "comps": {
@@ -18,25 +18,25 @@
             }
           },
           {
-            "frame": 0.08333333333333333,
+            "frame": 0.05,
             "value": {
               "__uuid__": "d4435327-2f7a-4783-8d88-94f7d95e1e6f"
             }
           },
           {
-            "frame": 0.16666666666666666,
+            "frame": 0.08333333333333333,
             "value": {
               "__uuid__": "b1440709-44fd-4d80-9d8a-cdaa8ce3a4b9"
             }
           },
           {
-            "frame": 0.25,
+            "frame": 0.11666666666666667,
             "value": {
               "__uuid__": "7835f26a-90ec-4c0d-a188-dc8509b78dc9"
             }
           },
           {
-            "frame": 0.3333333333333333,
+            "frame": 0.15,
             "value": {
               "__uuid__": "d4435327-2f7a-4783-8d88-94f7d95e1e6f"
             }

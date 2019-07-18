@@ -12,7 +12,9 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    hanging: false
+    hanging: false,
+    collectAction: null,
+    invincible: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -23,7 +25,7 @@ cc.Class({
 
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
-    
+    this.collectAction = this.generateCollectAction()
     /*
     let rotateAction = cc.rotateBy(4, -360);
     let ymAction = cc.repeatForever(rotateAction)
@@ -41,6 +43,9 @@ cc.Class({
 
   update (dt) {
     this.rebounce()
+    if (this.invincible === true) {
+      cc.game.emit('invincible suit');
+    }
   },
 
   tangentAccelerate (angle) {
@@ -69,6 +74,12 @@ cc.Class({
     }
   },
 
+  generateCollectAction() {
+    let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
+    let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
+    return cc.spawn(jumpAction, scaleAction, cc.fadeOut(0.08))
+  },
+
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
       other.node.stopAllActions()
@@ -76,12 +87,11 @@ cc.Class({
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
       other.node.runAction(cc.sequence(scaleAction, fadeout))
-      cc.game.emit('gameover')
+      if (this.invincible === false) {
+        cc.game.emit('gameover')
+      }
     } else if (other.node.name === 'star') {
-      let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
-      let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
-      let fadeout = cc.fadeOut(0.1)
-      other.node.runAction(cc.spawn(jumpAction, scaleAction, fadeout))
+      other.node.runAction(this.collectAction)
       //Acceleration  
       let rigidbody = this.node.getComponent(cc.RigidBody)
       let v = rigidbody.linearVelocity
@@ -93,7 +103,13 @@ cc.Class({
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
       other.node.runAction(cc.sequence(scaleAction, fadeout))
-      cc.game.emit('gameover')
+      if (this.invincible === false) {
+        cc.game.emit('gameover')
+      }
+    } else if (other.node.name === 'mushroom') {
+      console.log('mushroom')
+      other.node.runAction(this.collectAction)
+      this.invincible = true
     }
   },
 

@@ -42,6 +42,11 @@ cc.Class({
       type: cc.Prefab
     },
 
+    mushroomPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+
     lastGenerateX: 0,
     lastCloudX: 0,
     lastYmX: 0,
@@ -180,7 +185,9 @@ cc.Class({
     if (!this.isGameOver) {
       let obj
       let rand = Math.random()
-      if (rand > 0.6) {
+      if (rand > 0.9) {
+        obj = cc.instantiate(this.mushroomPrefab)
+      } else if (rand > 0.6) {
         obj = cc.instantiate(this.starPrefab)
       } else if (rand > 0.3) {
         obj = cc.instantiate(this.ghostPrefab)
