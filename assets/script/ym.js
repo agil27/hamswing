@@ -44,7 +44,10 @@ cc.Class({
   update (dt) {
     this.rebounce()
     if (this.invincible === true) {
-      cc.game.emit('invincible suit');
+      //cc.game.emit('invincible suit');
+      this.node.color = new cc.color(65, 174, 60)
+    } else {
+      this.node.color = new cc.color(255, 255, 255)
     }
   },
 
@@ -110,6 +113,9 @@ cc.Class({
       console.log('mushroom')
       other.node.runAction(this.collectAction)
       this.invincible = true
+      setTimeout((() => {
+        this.invincible = false
+      }).bind(this), 5000) 
     }
   },
 
