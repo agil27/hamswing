@@ -57,6 +57,8 @@ cc.Class({
     cc.game.on('detach', this.tangentAccelerate, this)
     cc.game.on('invincible start', this.invincibleStart, this)
     cc.game.on('invincible end', this.invincibleEnd, this)
+
+    this.invincible = false
   },
 
   start () {
@@ -65,6 +67,13 @@ cc.Class({
 
   update (dt) {
     this.rebounce()
+  },
+
+  onDisable () {
+    this.invincible = false
+    if (!this.invincibleTimer) {
+      clearTimeout(this.invincibleTimer)
+    }
   },
 
   tangentAccelerate (angle) {
@@ -150,8 +159,10 @@ cc.Class({
         cc.game.emit('touchmushroom')
       }
       this.invincibleTimer = setTimeout(() => {
-        this.invincible = false
-        cc.game.emit('invincible end')
+        if (this.invincible) {
+          this.invincible = false
+          cc.game.emit('invincible end')
+        }
       }, 5000)
     }
   },

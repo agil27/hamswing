@@ -199,9 +199,9 @@ cc.Class({
     if (!this.isGameOver) {
       let obj
       let rand = Math.random()
-      if (rand > 0.8) {
+      if (rand > 0.5) {
         obj = cc.instantiate(this.mushroomPrefab)
-      } else if (rand > 0.7) {
+      } else if (rand > 0) {
         obj = cc.instantiate(this.starPrefab)
       } else if (rand > 0.3) {
         obj = cc.instantiate(this.ghostPrefab)
@@ -222,6 +222,8 @@ cc.Class({
     this.node.getChildByName('tongue').active = false
     this.ym.enabled = false
     this.ym.active = false
+    this.doubleScoreText.active = false
+    this.invincibleText.active = false
     this.isGameOver = true
     this.panel.active = true
     this.scoreBoard.y = -20
@@ -236,7 +238,9 @@ cc.Class({
     this.doubleStateTimer = setTimeout(() => {
       this.scoreFactor = 1
       this.doubleStateTimer = null
-      this.doubleScoreText.active = true
+      if (this.doubleScoreText) {
+        this.doubleScoreText.active = false
+      }
     }, 3000)
   },
 
