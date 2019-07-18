@@ -1,8 +1,8 @@
 # 仓鼠摆一摆 游戏说明文档
 
-汪元标 2016100327 #你的邮箱
+汪元标 2016100327 [wang-yb16@mails.tsinghua.edu.cn](wang-yb16@mails.tsinghua.edu.cn)
 
-张欣炜 2016010151 xw-zhang16@mails.tsinghua.edu.cn
+张欣炜 2016010151 [xw-zhang16@mails.tsinghua.edu.cn](xw-zhang16@mails.tsinghua.edu.cn)
 
 github仓库：https://github.com/zhangxwww/hamswing
 

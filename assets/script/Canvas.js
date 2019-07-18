@@ -101,7 +101,17 @@ cc.Class({
       type: cc.Node
     },
 
-    isGameOver: false
+    invincibleText: {
+      default: null,
+      type: cc.Node
+    },
+
+    doubleScoreText: {
+      default: null,
+      type: cc.Node
+    },
+
+    isGameOver: false,
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -117,6 +127,7 @@ cc.Class({
     this.bgc1 = this.node.getChildByName('bgcloud1')
     this.panel = this.node.getChildByName('overPanel')
     this.scoreBoard = this.node.getChildByName('score')
+    this.invincibleText = this.node.getChildByName('invincibleText')
     this.isGameOver = false
 
     this.bg1.on('touchstart', () => {
@@ -179,13 +190,16 @@ cc.Class({
     }
 
     this.updateClouds()
+
+    this.invincibleText.x = this.mainCamera.x
+    this.doubleScoreText.x = this.mainCamera.x
   },
 
   generateObject () {
     if (!this.isGameOver) {
       let obj
       let rand = Math.random()
-      if (rand > 0.9) {
+      if (rand > 0.8) {
         obj = cc.instantiate(this.mushroomPrefab)
       } else if (rand > 0.7) {
         obj = cc.instantiate(this.starPrefab)
@@ -215,12 +229,14 @@ cc.Class({
 
   touchStar () {
     this.scoreFactor = 2
+    this.doubleScoreText.active = true
     if (this.doubleStateTimer) {
       clearTimeout(this.doubleStateTimer)
     }
     this.doubleStateTimer = setTimeout(() => {
       this.scoreFactor = 1
       this.doubleStateTimer = null
+      this.doubleScoreText.active = true
     }, 3000)
   },
 

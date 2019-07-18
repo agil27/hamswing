@@ -30,6 +30,12 @@ cc.Class({
 
     //Timers
     invincibleTimer: null,
+
+    //Nodes
+    invincibleText: {
+      default: cc.null,
+      type: cc.Node,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -150,6 +156,7 @@ cc.Class({
   },
 
   invincibleStart () {
+    this.invincibleText.active = true
     this.node.parent.getChildByName('tongue').color = new cc.color(65, 174, 60)
     this.node.parent.getChildByName('tongue').getChildByName('claw').color = new cc.color(65, 174, 60)
     this.node.color = new cc.color(65, 174, 60)
@@ -157,6 +164,7 @@ cc.Class({
   },
 
   invincibleEnd () {
+    this.invincibleText.active = false
     this.node.parent.getChildByName('tongue').color = new cc.color(255, 255, 255)
     this.node.parent.getChildByName('tongue').getChildByName('claw').color = new cc.color(255, 255, 255)
     this.node.color = new cc.color(255, 255, 255)
