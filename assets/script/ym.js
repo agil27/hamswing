@@ -14,7 +14,22 @@ cc.Class({
   properties: {
     hanging: false,
     collectAction: null,
-    invincible: false
+    invincible: false,
+
+    //Action factors
+    scaleDownFactor: 0.8,
+    scaleUpFactor: 1.2,
+    scaleDuration: 1,
+    rotateDuration: 1,
+
+    //Actions
+    invincibleAction: {
+      default: null,
+      type: cc.Action,
+    },
+
+    //Timers
+    invincibleTimer: null,
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -25,16 +40,17 @@ cc.Class({
 
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
+
+    //generate Actions
     this.collectAction = this.generateCollectAction()
-    /*
-    let rotateAction = cc.rotateBy(4, -360);
-    let ymAction = cc.repeatForever(rotateAction)
-    this.node.runAction(ymAction)
-    */
+    this.invincibleAction = this.generateInvincibleAction()
    
+    //signal binding
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
     cc.game.on('detach', this.tangentAccelerate, this)
+    cc.game.on('invincible start', this.invincibleStart, this)
+    cc.game.on('invincible end', this.invincibleEnd, this)
   },
 
   start () {
@@ -43,12 +59,6 @@ cc.Class({
 
   update (dt) {
     this.rebounce()
-    if (this.invincible === true) {
-      //cc.game.emit('invincible suit');
-      this.node.color = new cc.color(65, 174, 60)
-    } else {
-      this.node.color = new cc.color(255, 255, 255)
-    }
   },
 
   tangentAccelerate (angle) {
@@ -83,6 +93,16 @@ cc.Class({
     return cc.spawn(jumpAction, scaleAction, cc.fadeOut(0.08))
   },
 
+  generateInvincibleAction() {
+    /*
+    let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleDownFactor)
+    let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleUpFactor)
+    let scaleAction = cc.sequence(scaleDown, scaleUp)
+    */
+    let rotateAction = cc.rotateBy(this.rotateDuration, 360)
+    return cc.repeatForever(rotateAction)
+  },
+
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster') {
       other.node.stopAllActions()
@@ -112,14 +132,36 @@ cc.Class({
     } else if (other.node.name === 'mushroom') {
       console.log('mushroom')
       other.node.runAction(this.collectAction)
-      this.invincible = true
-      setTimeout((() => {
+      if (this.invincible === false) {
+        this.invincible = true
+        cc.game.emit('invincible start')
+      } else {
+        clearTimeout(this.invincibleTimer)
+      }
+      this.invincibleTimer = setTimeout((() => {
         this.invincible = false
-      }).bind(this), 5000) 
+        cc.game.emit('invincible end')
+      }).bind(this), 5000)
     }
   },
 
   toArc (ang) {
     return Math.PI * ang / 180
   },
+
+  invincibleStart () {
+    this.node.parent.getChildByName('tongue').color = new cc.color(65, 174, 60)
+    this.node.parent.getChildByName('tongue').getChildByName('claw').color = new cc.color(65, 174, 60)
+    this.node.color = new cc.color(65, 174, 60)
+    this.node.runAction(this.invincibleAction)
+  },
+
+  invincibleEnd () {
+    this.node.parent.getChildByName('tongue').color = new cc.color(255, 255, 255)
+    this.node.parent.getChildByName('tongue').getChildByName('claw').color = new cc.color(255, 255, 255)
+    this.node.color = new cc.color(255, 255, 255)
+    this.node.stopAction(this.invincibleAction)
+    this.node.rotation = 0
+    this.node.scale = cc.v2(0.05, 0.05)
+  }
 })
