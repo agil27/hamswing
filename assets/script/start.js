@@ -37,6 +37,10 @@ cc.Class({
 
   },
 
+  startTutorial () {
+    cc.director.loadScene('tutorial')
+  },
+  
   startGame () {
     cc.director.loadScene('game')
   },
