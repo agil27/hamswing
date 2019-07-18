@@ -59,6 +59,10 @@ cc.Class({
     // 1 for normal and 2 if star has been eaten
     scoreFactor: 1,
 
+    bonusAppearanceTime: 2000,
+    fadeInDuration: 0.5,
+    scaleDuration: 0.5,
+    bonusScaleUpFactor: 2,
     doubleStateTimer: null,
 
     // Nodes
@@ -117,25 +121,41 @@ cc.Class({
       type: cc.Node
     },
 
-    isGameOver: false
+    bonusText: {
+      default: null,
+      type: cc.Node,
+    },
+
+    bonusTimer: null,
+    bonusAction: null,
+    isGameOver: false,
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
+    this.initProps()
+    this.bindSignals()
+    this.processTouchEvent()
+  },
+
+  start () {
+    setTimeout(this.generateObject.bind(this), 2000)
+    cc.game.emit('updatescore', this.score)
+    this.lastGenerateX = this.ym.x + this.node.width
+    this.lastCloudX = this.ym.x + this.node.width + Math.random() * 1000
+    this.lastYmX = this.ym.x
+    setInterval(this.updateScore.bind(this), 100)
+    setInterval(this.clearObjsOutOfScreen.bind(this), 1000)
+  },
+
+  bindSignals () {
     cc.game.on('gameover', this.gameover, this)
     cc.game.on('touchstar', this.touchStar, this)
-    this.mainCamera = this.node.getChildByName('Main Camera')
-    this.ym = this.node.getChildByName('ym')
-    this.bg1 = this.node.getChildByName('bg1')
-    this.bg2 = this.node.getChildByName('bg2')
-    this.bgc0 = this.node.getChildByName('bgcloud0')
-    this.bgc1 = this.node.getChildByName('bgcloud1')
-    this.panel = this.node.getChildByName('overPanel')
-    this.scoreBoard = this.node.getChildByName('score')
-    this.invincibleText = this.node.getChildByName('invincibleText')
-    this.isGameOver = false
+    cc.game.on('killmonster', this.onKillMonster, this)
+  },
 
+  processTouchEvent () {
     this.bg1.on('touchstart', () => {
       if (!this.isGameOver) {
         cc.game.emit('ymstickout')
@@ -168,20 +188,35 @@ cc.Class({
     })
   },
 
-  start () {
-    setTimeout(this.generateObject.bind(this), 2000)
-    cc.game.emit('updatescore', this.score)
-    this.lastGenerateX = this.ym.x + this.node.width
-    this.lastCloudX = this.ym.x + this.node.width + Math.random() * 1000
-    this.lastYmX = this.ym.x
-    setInterval(this.updateScore.bind(this), 100)
-    setInterval(this.clearObjsOutOfScreen.bind(this), 1000)
+  initProps () {
+    this.mainCamera = this.node.getChildByName('Main Camera')
+    this.ym = this.node.getChildByName('ym')
+    this.bg1 = this.node.getChildByName('bg1')
+    this.bg2 = this.node.getChildByName('bg2')
+    this.bgc0 = this.node.getChildByName('bgcloud0')
+    this.bgc1 = this.node.getChildByName('bgcloud1')
+    this.panel = this.node.getChildByName('overPanel')
+    this.scoreBoard = this.node.getChildByName('score')
+    this.invincibleText = this.node.getChildByName('invincibleText')
+    this.isGameOver = false
+    this.bonusAction = this.generateBonusAction()
   },
 
   update (dt) {
+    this.updateChildPos()
+    this.updateInfiniteBackground()
+    this.updateClouds()
+  },
+
+  updateChildPos () {
     this.mainCamera.x = this.ym.x + 360
     this.mainCamera.y = 0
+    this.invincibleText.x = this.mainCamera.x
+    this.doubleScoreText.x = this.mainCamera.x
+    this.bonusText.x = this.mainCamera.x + 150
+  },
 
+  updateInfiniteBackground () {
     if (this.bg1.x + 1600 < this.mainCamera.x) {
       this.bg1.x += 3200
       this.bgc1.x += 3200
@@ -194,11 +229,12 @@ cc.Class({
     if (this.ym.y < -240 && !this.isGameOver) {
       this.gameover()
     }
-
-    this.updateClouds()
-
-    this.invincibleText.x = this.mainCamera.x
-    this.doubleScoreText.x = this.mainCamera.x
+  },
+  
+  generateBonusAction () {
+    let fadeInAction = cc.fadeIn(this.fadeInDuration)
+    let scaleAction = cc.scaleBy(this.scaleDuration, this.bonusScaleUpFactor)
+    return cc.spawn(fadeInAction, scaleAction)
   },
 
   // generate star, mushroom, ghost or monster
@@ -380,5 +416,17 @@ cc.Class({
         o.destroy()
       }
     }
-  }
+  },
+
+  onKillMonster () {
+    if (this.bonusText.active === true) {
+      clearTimeout(this.bonusTimer)
+    }
+    this.bonusText.active = true
+    this.bonusText.scale = 0.1
+    this.bonusText.runAction(this.bonusAction)
+    this.bonusTimer = setTimeout(() => {
+      this.bonusText.active = false
+    }, this.bonusAppearanceTime)
+  },
 })
