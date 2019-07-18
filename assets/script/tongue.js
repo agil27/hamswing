@@ -44,7 +44,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
+  onLoad() {
     this.node.enabled = false
 
     cc.game.on('stickout', this.lengthen, this)
@@ -55,11 +55,11 @@ cc.Class({
     this.ceiling = this.node.parent.getChildByName('ceiling')
   },
 
-  start () {
+  start() {
 
   },
 
-  update (dt) {
+  update(dt) {
     let p1 = this.ym.position
     let p2 = this.attachPointInWorldSpace
     let distance = this.calculateDistance(p1, p2)
@@ -88,7 +88,7 @@ cc.Class({
     this.claw.x = this.node.width - this.claw.width / 2 + 1
   },
 
-  lengthen () {
+  lengthen() {
     if (!this.isLengthening) {
       this.node.active = true
       this.isLengthening = true
@@ -99,7 +99,7 @@ cc.Class({
     }
   },
 
-  shorten () {
+  shorten() {
     if (!this.isShortening) {
       this.isShortening = true
       this.isLengthening = false
@@ -108,7 +108,7 @@ cc.Class({
     }
   },
 
-  attach (connectedAnchor) {
+  attach(connectedAnchor) {
     this.ropeJoint.enabled = true
     this.ropeJoint.connectedBody = this.ceiling.getComponent(cc.RigidBody)
     this.ropeJoint.anchor = cc.v2(0, 0)
@@ -118,22 +118,22 @@ cc.Class({
     this.ropeJoint.apply()
   },
 
-  findAttachPoint () {
+  findAttachPoint() {
     return {
       nodeSpace: cc.v2(this.ym.x + this.ceiling.y - this.ym.y - this.ceiling.x, 0),
       worldSpace: cc.v2(this.ym.x + this.ceiling.y - this.ym.y, this.ceiling.y)
     }
   },
 
-  calculateDistance (p1, p2) {
+  calculateDistance(p1, p2) {
     return Math.floor(Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2)))
   },
 
-  calculateAngle (p1, p2) {
+  calculateAngle(p1, p2) {
     return -Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI
   },
 
-  toArc (ang) {
+  toArc(ang) {
     return Math.PI * ang / 180
   },
 })

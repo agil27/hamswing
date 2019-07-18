@@ -9,36 +9,36 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        scaleDuration: 0.2, //secs
-        scaleFactorUp: 2,
-        scaleFactorDown: 0.5,
-        scaleAction: null,
-    },
+  properties: {
+    scaleDuration: 0.2, // secs
+    scaleFactorUp: 2,
+    scaleFactorDown: 0.5,
+    scaleAction: null
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        this.difficultify()
-        //cc.director.getCollisionManager().enabled = true
-    },
-    
-    generateScaleAction () {
-        let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleFactorUp)
-        let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleFactorDown)
-        return cc.repeatForever(cc.sequence(scaleUp, scaleDown))
-    },
+  onLoad () {
+    this.difficultify()
+    // cc.director.getCollisionManager().enabled = true
+  },
 
-    difficultify(score) {
-        let rand = Math.random()
-        if (this.node !== null) {
-            this.scaleAction = this.generateScaleAction()
-            if (rand > 0.9) {
-                this.node.runAction(this.scaleAction)
-            }
-        }   
-    },
-    // update (dt) {},
-});
+  generateScaleAction () {
+    let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleFactorUp)
+    let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleFactorDown)
+    return cc.repeatForever(cc.sequence(scaleUp, scaleDown))
+  },
+
+  difficultify (score) {
+    let rand = Math.random()
+    if (this.node !== null) {
+      this.scaleAction = this.generateScaleAction()
+      if (rand > 0.9) {
+        this.node.runAction(this.scaleAction)
+      }
+    }
+  }
+  // update (dt) {},
+})

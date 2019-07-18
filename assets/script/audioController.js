@@ -27,22 +27,60 @@ cc.Class({
     //         this._bar = value;
     //     }
     // },
+    touchToolsAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+
+    invincibleAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+
+    gameoverAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+
+    killMonsterAudio: {
+      default: null,
+      type: cc.AudioSource
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+  onLoad () {
+    cc.game.on('touchstar', () => {
+      if (this.touchToolsAudio) {
+        this.touchToolsAudio.play()
+      }
+    })
+    cc.game.on('touchmushroom', () => {
+      if (this.touchToolsAudio) {
+        this.touchToolsAudio.play()
+      }
+    })
+    cc.game.on('invincible start', () => {
+      if (this.invincibleAudio) {
+        this.invincibleAudio.play()
+      }
+    })
+    cc.game.on('gameover', () => {
+      if (this.gameoverAudio) {
+        this.gameoverAudio.play()
+      }
+    })
+    cc.game.on('killmonster', () => {
+      if (this.killMonsterAudio) {
+        this.killMonsterAudio.play()
+      }
+    })
+  },
 
   start () {
 
-  },
-
-  startGame () {
-    cc.director.loadScene('game')
-  },
-
-  showRank () {
-    // cc.director.loadScene('rank')
   }
+
   // update (dt) {},
 })

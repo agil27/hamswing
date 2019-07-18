@@ -111,7 +111,7 @@ cc.Class({
       type: cc.Node
     },
 
-    isGameOver: false,
+    isGameOver: false
   },
 
   // LIFE-CYCLE CALLBACKS:

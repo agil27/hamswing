@@ -12,25 +12,24 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    moveDuration: 2, //secs
+    moveDuration: 2, // secs
     moveDistance: 100,
-    floatAction: null,
+    floatAction: null
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
     this.difficultify()
-    //cc.director.getCollisionManager().enabled = true
+    // cc.director.getCollisionManager().enabled = true
   },
 
-  generateFloatingAction(direction) {
+  generateFloatingAction (direction) {
     let moveUp = cc.moveBy(this.moveDuration, cc.v2(0, this.moveDistance))
     let moveDown = cc.moveBy(this.moveDuration, cc.v2(0, -this.moveDistance))
     if (direction === 0) {
       return cc.repeatForever(cc.sequence(moveUp, moveDown))
-    }
-    else {
+    } else {
       return cc.repeatForever(cc.sequence(moveDown, moveUp))
     }
   },
@@ -44,29 +43,27 @@ cc.Class({
   },
   */
 
-  difficultify() {
+  difficultify () {
     let rand = Math.random()
     if (this.node !== null) {
-      if ( rand > 0.5) {
+      if (rand > 0.5) {
         this.floatAction = this.generateFloatingAction()
         if (rand > 0.7) {
           this.node.runAction(this.floatAction, 0)
-        }
-        else {
+        } else {
           this.node.runAction(this.floatAction, 1)
         }
       }
-    } 
+    }
   },
 
-  start () {
+  start () {},
+
+  onCollideWithHero () {
+
   },
 
-  onCollideWithHero() {
-    
-  },
-
-  onDestroy() {
+  onDestroy () {
     cc.game.off('updatescore', this.difficultify)
   }
   // update (dt) {},

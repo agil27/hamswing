@@ -9,37 +9,37 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-    },
+  properties: {
+    // foo: {
+    //     // ATTRIBUTES:
+    //     default: null,        // The default value will be used only when the component attaching
+    //                           // to a node for the first time
+    //     type: cc.SpriteFrame, // optional, default is typeof default
+    //     serializable: true,   // optional, default is true
+    // },
+    // bar: {
+    //     get () {
+    //         return this._bar;
+    //     },
+    //     set (value) {
+    //         this._bar = value;
+    //     }
+    // },
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+  // onLoad () {},
 
-    start () {
-        this.ym = this.node.parent.getChildByName('ym')
-        this.zIndex = 10000
-    },
+  start () {
+    this.ym = this.node.parent.getChildByName('ym')
+    this.zIndex = 10000
+  },
 
-    update (dt) {
-        this.node.x = this.node.parent.getChildByName('Main Camera').x
-        this.node.y = 0
-    },
-});
+  update (dt) {
+    this.node.x = this.node.parent.getChildByName('Main Camera').x
+    this.node.y = 0
+  }
+})

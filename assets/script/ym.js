@@ -16,26 +16,26 @@ cc.Class({
     collectAction: null,
     invincible: false,
 
-    //Action factors
+    // Action factors
     scaleDownFactor: 0.8,
     scaleUpFactor: 1.2,
     scaleDuration: 1,
     rotateDuration: 1,
 
-    //Actions
+    // Actions
     invincibleAction: {
       default: null,
-      type: cc.Action,
+      type: cc.Action
     },
 
-    //Timers
+    // Timers
     invincibleTimer: null,
 
-    //Nodes
+    // Nodes
     invincibleText: {
       default: cc.null,
-      type: cc.Node,
-    },
+      type: cc.Node
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -47,11 +47,11 @@ cc.Class({
     this.ropeJoint = this.node.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
 
-    //generate Actions
+    // generate Actions
     this.collectAction = this.generateCollectAction()
     this.invincibleAction = this.generateInvincibleAction()
-   
-    //signal binding
+
+    // signal binding
     cc.game.on('ymstickout', this.stickOutTongue, this)
     cc.game.on('ymrollup', this.rollUpTongue, this)
     cc.game.on('detach', this.tangentAccelerate, this)
@@ -75,7 +75,7 @@ cc.Class({
   rebounce () {
     let v = this.node.getComponent(cc.RigidBody).linearVelocity
     if (this.node.y > this.ceiling.y) {
-      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, - 0.7 * v.y)
+      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(v.x, -0.7 * v.y)
     }
   },
 
@@ -93,13 +93,13 @@ cc.Class({
     }
   },
 
-  generateCollectAction() {
+  generateCollectAction () {
     let jumpAction = cc.moveBy(0.1, cc.v2(0, 50)).easing(cc.easeCubicActionOut())
     let scaleAction = cc.scaleBy(0.1, 2).easing(cc.easeCubicActionOut())
     return cc.spawn(jumpAction, scaleAction, cc.fadeOut(0.08))
   },
 
-  generateInvincibleAction() {
+  generateInvincibleAction () {
     /*
     let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleDownFactor)
     let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleUpFactor)
@@ -118,10 +118,12 @@ cc.Class({
       other.node.runAction(cc.sequence(scaleAction, fadeout))
       if (this.invincible === false) {
         cc.game.emit('gameover')
+      } else {
+        cc.game.emit('killmonster')
       }
     } else if (other.node.name === 'star') {
       other.node.runAction(this.collectAction)
-      //Acceleration  
+      // Acceleration
       let rigidbody = this.node.getComponent(cc.RigidBody)
       let v = rigidbody.linearVelocity
       rigidbody.linearVelocity = cc.v2(v.x * 1.1, v.y * 1.1)
@@ -134,6 +136,8 @@ cc.Class({
       other.node.runAction(cc.sequence(scaleAction, fadeout))
       if (this.invincible === false) {
         cc.game.emit('gameover')
+      } else {
+        cc.game.emit('killmonster')
       }
     } else if (other.node.name === 'mushroom') {
       console.log('mushroom')
@@ -143,11 +147,12 @@ cc.Class({
         cc.game.emit('invincible start')
       } else {
         clearTimeout(this.invincibleTimer)
+        cc.game.emit('touchmushroom')
       }
-      this.invincibleTimer = setTimeout((() => {
+      this.invincibleTimer = setTimeout(() => {
         this.invincible = false
         cc.game.emit('invincible end')
-      }).bind(this), 5000)
+      }, 5000)
     }
   },
 
