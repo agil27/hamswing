@@ -27,21 +27,26 @@ cc.Class({
     //         this._bar = value;
     //     }
     // },
+
+    // plays when ym touch star
     touchToolsAudio: {
       default: null,
       type: cc.AudioSource
     },
 
+    // plays when ym touch mushroom
     invincibleAudio: {
       default: null,
       type: cc.AudioSource
     },
 
+    // plays when gameover
     gameoverAudio: {
       default: null,
       type: cc.AudioSource
     },
 
+    // plays when ym kills enermy
     killMonsterAudio: {
       default: null,
       type: cc.AudioSource
@@ -52,11 +57,6 @@ cc.Class({
 
   onLoad () {
     cc.game.on('touchstar', () => {
-      if (this.touchToolsAudio) {
-        this.touchToolsAudio.play()
-      }
-    })
-    cc.game.on('touchmushroom', () => {
       if (this.touchToolsAudio) {
         this.touchToolsAudio.play()
       }

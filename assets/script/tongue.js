@@ -12,12 +12,20 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
+    // current length of the tongue
     curLength: 0,
+    // the speed to become longer
     lengthenSpeed: 25,
+    // the speed to become shorter
     shortenSpeed: 25,
+    // current angle
     angle: 0,
+    // if it is lengthening
     isLengthening: false,
+    // if it is shortening
     isShortening: false,
+
+    // Nodes
     ym: {
       default: null,
       type: cc.Node
@@ -34,6 +42,8 @@ cc.Class({
       default: null,
       type: cc.Node
     },
+
+    // the attch point in different coordinates
     attachPointInWorldSpace: {
       default: new cc.Vec2()
     },
@@ -44,7 +54,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {
+  onLoad () {
     this.node.enabled = false
 
     cc.game.on('stickout', this.lengthen, this)
@@ -55,26 +65,31 @@ cc.Class({
     this.ceiling = this.node.parent.getChildByName('ceiling')
   },
 
-  start() {
+  start () {
 
   },
 
-  update(dt) {
+  update (dt) {
+    // find the ends of tongue and compute distance and angle
     let p1 = this.ym.position
     let p2 = this.attachPointInWorldSpace
     let distance = this.calculateDistance(p1, p2)
     let angle = this.calculateAngle(p1, p2)
 
+    // become longer
     if (this.isLengthening) {
       this.curLength += this.lengthenSpeed
+      // long enough to attach
       if (this.curLength > distance) {
         this.curLength = distance
         this.isLengthening = false
         this.attach(this.attachPointInNodeSpace)
       }
     }
+    // become shorter
     if (this.isShortening) {
       this.curLength -= this.shortenSpeed
+      // short enough
       if (this.curLength < 0) {
         cc.game.emit('detach', angle)
         this.curLength = 0
@@ -88,7 +103,7 @@ cc.Class({
     this.claw.x = this.node.width - this.claw.width / 2 + 1
   },
 
-  lengthen() {
+  lengthen () {
     if (!this.isLengthening) {
       this.node.active = true
       this.isLengthening = true
@@ -99,7 +114,7 @@ cc.Class({
     }
   },
 
-  shorten() {
+  shorten () {
     if (!this.isShortening) {
       this.isShortening = true
       this.isLengthening = false
@@ -108,7 +123,8 @@ cc.Class({
     }
   },
 
-  attach(connectedAnchor) {
+  // attach to the conneted anchor
+  attach (connectedAnchor) {
     this.ropeJoint.enabled = true
     this.ropeJoint.connectedBody = this.ceiling.getComponent(cc.RigidBody)
     this.ropeJoint.anchor = cc.v2(0, 0)
@@ -118,22 +134,23 @@ cc.Class({
     this.ropeJoint.apply()
   },
 
-  findAttachPoint() {
+  // find the attach point on the ceiling, at the top right of ym
+  findAttachPoint () {
     return {
       nodeSpace: cc.v2(this.ym.x + this.ceiling.y - this.ym.y - this.ceiling.x, 0),
       worldSpace: cc.v2(this.ym.x + this.ceiling.y - this.ym.y, this.ceiling.y)
     }
   },
 
-  calculateDistance(p1, p2) {
+  calculateDistance (p1, p2) {
     return Math.floor(Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2)))
   },
 
-  calculateAngle(p1, p2) {
+  calculateAngle (p1, p2) {
     return -Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI
   },
 
-  toArc(ang) {
+  toArc (ang) {
     return Math.PI * ang / 180
-  },
+  }
 })

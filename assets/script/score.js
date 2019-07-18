@@ -44,11 +44,5 @@ cc.Class({
     this.label.string = score + ''
   },
 
-  moveToMiddle () {
-    console.log('move')
-    // this.node.y = -20
-    // console.log(this.node.y)
-    // let moveAction = cc.moveBy(1000, cc.v2(0, -120)).easing(cc.easeCubicActionIn())
-    // this.node.runAction(moveAction)
-  }
+  moveToMiddle () {}
 })

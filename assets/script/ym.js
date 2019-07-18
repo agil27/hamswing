@@ -12,7 +12,9 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
+    // if ym is hanging on the ceiling
     hanging: false,
+
     collectAction: null,
     invincible: false,
 
@@ -70,6 +72,7 @@ cc.Class({
   },
 
   onDisable () {
+    // stop timer when ym dies
     this.invincible = false
     if (!this.invincibleTimer) {
       clearTimeout(this.invincibleTimer)
@@ -109,62 +112,60 @@ cc.Class({
   },
 
   generateInvincibleAction () {
-    /*
-    let scaleDown = cc.scaleBy(this.scaleDuration, this.scaleDownFactor)
-    let scaleUp = cc.scaleBy(this.scaleDuration, this.scaleUpFactor)
-    let scaleAction = cc.sequence(scaleDown, scaleUp)
-    */
     let rotateAction = cc.rotateBy(this.rotateDuration, 360)
     return cc.repeatForever(rotateAction)
   },
 
   onCollisionEnter (other, self) {
-    if (other.node.name === 'monster') {
-      other.node.stopAllActions()
-      other.node.getComponent(cc.Animation).play('monster die')
-      let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
-      let fadeout = cc.fadeOut(1.5)
-      other.node.runAction(cc.sequence(scaleAction, fadeout))
-      if (this.invincible === false) {
-        cc.game.emit('gameover')
-      } else {
-        cc.game.emit('killmonster')
-      }
+    if (other.node.name === 'monster' || other.node.name === 'ghost') {
+      this.collideWithEnermy(other)
     } else if (other.node.name === 'star') {
-      other.node.runAction(this.collectAction)
-      // Acceleration
-      let rigidbody = this.node.getComponent(cc.RigidBody)
-      let v = rigidbody.linearVelocity
-      rigidbody.linearVelocity = cc.v2(v.x * 1.1, v.y * 1.1)
-      cc.game.emit('touchstar')
-    } else if (other.node.name === 'ghost') {
-      other.node.stopAllActions()
-      other.node.getComponent(cc.Animation).play('ghostDie')
-      let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
-      let fadeout = cc.fadeOut(1.5)
-      other.node.runAction(cc.sequence(scaleAction, fadeout))
-      if (this.invincible === false) {
-        cc.game.emit('gameover')
-      } else {
-        cc.game.emit('killmonster')
-      }
+      this.collideWithStar(other)
     } else if (other.node.name === 'mushroom') {
-      console.log('mushroom')
-      other.node.runAction(this.collectAction)
-      if (this.invincible === false) {
-        this.invincible = true
-        cc.game.emit('invincible start')
-      } else {
-        clearTimeout(this.invincibleTimer)
-        cc.game.emit('touchmushroom')
-      }
-      this.invincibleTimer = setTimeout(() => {
-        if (this.invincible) {
-          this.invincible = false
-          cc.game.emit('invincible end')
-        }
-      }, 5000)
+      this.collideWithMushroom(other)
     }
+  },
+
+  collideWithStar (star) {
+    star.node.runAction(this.collectAction)
+    // Acceleration
+    let rigidbody = this.node.getComponent(cc.RigidBody)
+    let v = rigidbody.linearVelocity
+    rigidbody.linearVelocity = cc.v2(v.x * 1.1, v.y * 1.1)
+    cc.game.emit('touchstar')
+  },
+
+  collideWithEnermy (enermy) {
+    enermy.node.stopAllActions()
+    if (enermy.node.name === 'monster') {
+      enermy.node.getComponent(cc.Animation).play('monster die')
+    } else {
+      enermy.node.getComponent(cc.Animation).play('ghostDie')
+    }
+    let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
+    let fadeout = cc.fadeOut(1.5)
+    enermy.node.runAction(cc.sequence(scaleAction, fadeout))
+    if (this.invincible === false) {
+      cc.game.emit('gameover')
+    } else {
+      cc.game.emit('killmonster')
+    }
+  },
+
+  collideWithMushroom (mushroom) {
+    mushroom.node.runAction(this.collectAction)
+    if (this.invincible === false) {
+      this.invincible = true
+    } else {
+      clearTimeout(this.invincibleTimer)
+    }
+    cc.game.emit('invincible start')
+    this.invincibleTimer = setTimeout(() => {
+      if (this.invincible) {
+        this.invincible = false
+        cc.game.emit('invincible end')
+      }
+    }, 5000)
   },
 
   toArc (ang) {
