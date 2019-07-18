@@ -22,6 +22,11 @@ cc.Class({
   onLoad () {
     this.difficultify()
     // cc.director.getCollisionManager().enabled = true
+    cc.game.on('tread', (obj) => {
+      if (obj === this.node) {
+        this.dropDown()
+      }
+    }, this)
   },
 
   generateFloatingAction (direction) {
@@ -63,8 +68,11 @@ cc.Class({
 
   },
 
-  onDestroy () {
-    cc.game.off('updatescore', this.difficultify)
-  }
+  onDestroy () {},
   // update (dt) {},
+
+  dropDown () {
+    let dy = this.node.parent.parent.height
+    this.node.runAction(cc.moveBy(0.2, cc.v2(0, -dy)))
+  }
 })

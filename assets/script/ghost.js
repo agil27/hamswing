@@ -23,6 +23,11 @@ cc.Class({
   onLoad () {
     this.difficultify()
     // cc.director.getCollisionManager().enabled = true
+    cc.game.on('tread', (obj) => {
+      if (obj === this.node) {
+        this.dropDown()
+      }
+    }, this)
   },
 
   generateScaleAction () {
@@ -39,6 +44,11 @@ cc.Class({
         this.node.runAction(this.scaleAction)
       }
     }
+  },
+
+  dropDown () {
+    let dy = this.node.parent.parent.height
+    this.node.runAction(cc.moveBy(0.3, cc.v2(0, -dy)))
   }
   // update (dt) {},
 })

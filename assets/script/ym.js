@@ -137,19 +137,35 @@ cc.Class({
 
   collideWithEnermy (enermy) {
     enermy.node.stopAllActions()
-    if (enermy.node.name === 'monster') {
-      enermy.node.getComponent(cc.Animation).play('monster die')
-    } else {
-      enermy.node.getComponent(cc.Animation).play('ghostDie')
-    }
-    let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
-    let fadeout = cc.fadeOut(1.5)
-    enermy.node.runAction(cc.sequence(scaleAction, fadeout))
-    if (this.invincible === false) {
-      cc.game.emit('gameover')
-    } else {
+    if (this.isTreadOnHead(enermy)) {
+      let rigidbody = this.node.getComponent(cc.RigidBody)
+      let v = rigidbody.linearVelocity
+      rigidbody.linearVelocity = cc.v2(v.x, -v.y * 0.6)
       cc.game.emit('killmonster')
+      cc.game.emit('tread', enermy.node)
+    } else {
+      if (enermy.node.name === 'monster') {
+        enermy.node.getComponent(cc.Animation).play('monster die')
+      } else {
+        enermy.node.getComponent(cc.Animation).play('ghostDie')
+      }
+      let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
+      let fadeout = cc.fadeOut(1.5)
+      enermy.node.runAction(cc.sequence(scaleAction, fadeout))
+      if (this.invincible === false) {
+        cc.game.emit('gameover')
+      } else {
+        cc.game.emit('killmonster')
+      }
     }
+  },
+
+  // is ym tread on the enermy's head
+  isTreadOnHead (enermy) {
+    let dx = this.node.x - enermy.node.x
+    let dy = this.node.y - enermy.node.y
+    let angle = Math.atan2(dy, dx)
+    return Math.PI / 4 < angle && angle < Math.PI * 3 / 4
   },
 
   collideWithMushroom (mushroom) {
