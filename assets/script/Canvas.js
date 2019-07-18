@@ -419,6 +419,7 @@ cc.Class({
   },
 
   onKillMonster () {
+    this.score += 100
     if (this.bonusText.active === true) {
       clearTimeout(this.bonusTimer)
     }
