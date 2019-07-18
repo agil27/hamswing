@@ -802,6 +802,12 @@
     "hanging": false,
     "collectAction": null,
     "invincible": false,
+    "scaleDownFactor": 0.5,
+    "scaleUpFactor": 2,
+    "scaleDuration": 0.1,
+    "rotateDuration": 2,
+    "invincibleAction": null,
+    "invincibleTimer": null,
     "_id": "e9iP7Fbs1F1oIs9sFscT9c"
   },
   {
