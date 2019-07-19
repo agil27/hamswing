@@ -35,13 +35,13 @@
     "orientation": "portrait",
     "zip": false
   },
-  "startScene": "c3e3a981-4a0d-491d-8f4a-32113c8eb48d",
+  "startScene": "5af1a674-34e2-45d8-9238-bb0e444e48d0",
   "title": "hamswing",
   "webOrientation": "landscape",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx6ac3f5090a6b99c5",
-    "orientation": "portrait",
+    "appid": "wx55f4e728e1d2b1b0",
+    "orientation": "landscapeRight",
     "separate_engine": false,
     "subContext": ""
   },

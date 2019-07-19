@@ -32,32 +32,17 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    /*
-    (async () => {
-      cc.loader.downloader.loadSubpackage('texture', (err) => {
-        if (err) {
-          return console.error(err)
-        }
-        console.log('load subpackage successfully.')
-      })
-    })()
-    */
+    cc.loader.downloader.loadSubpackage('texture', (err) => {
+      if (err) {
+        return console.error(err)
+      }
+      console.log('load subpackage successfully.')
+    })
   },
 
   start () {
-
-  },
-
-  startTutorial () {
-    cc.director.loadScene('tutorial')
-  },
-
-  startGame () {
-    cc.director.loadScene('game')
-  },
-
-  showRank () {
-    // cc.director.loadScene('rank')
+    cc.director.loadScene('start')
   }
+
   // update (dt) {},
 })
