@@ -31,7 +31,14 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+  onLoad () {
+    cc.loader.downloader.loadSubpackage('texture', (err) => {
+      if (err) {
+        return console.error(err)
+      }
+      console.log('load subpackage successfully.')
+    })
+  },
 
   start () {
 
@@ -40,7 +47,7 @@ cc.Class({
   startTutorial () {
     cc.director.loadScene('tutorial')
   },
-  
+
   startGame () {
     cc.director.loadScene('game')
   },

@@ -15,11 +15,11 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
+  onLoad() {
     cc.director.getPhysicsManager().enabled = true
   },
 
-  start () {},
+  start() {},
 
-  update (dt) {}
+  update(dt) {}
 })

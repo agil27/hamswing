@@ -126,22 +126,22 @@ cc.Class({
 
     bonusText: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     touchTutorial: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     collectTutorial: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     monsterTutorial: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     touchTutorialTimer: null,
@@ -151,12 +151,12 @@ cc.Class({
     bonusAction: null,
     isGameOver: false,
 
-    //tutorial mode control variables
+    // tutorial mode control variables
     notCollectYet: true,
     notMeetMonsterYet: true,
     firstTouch: false,
     firstCollect: false,
-    firstMonster: false,
+    firstMonster: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -294,7 +294,7 @@ cc.Class({
       } else {
         obj = cc.instantiate(this.monsterPrefab)
       }
-      //this.displayTutorial(obj.name)
+      // this.displayTutorial(obj.name)
       let pos = this.generatePosition()
       if (pos !== null) {
         this.objsLayer.addChild(obj)
@@ -326,10 +326,10 @@ cc.Class({
     if (this.node) {
       this.touchTutorialTimer = setTimeout(() => {
         this.touchTutorial.active = false
-        //this.collectTutorial.x = this.mainCamera.x + 200
+        // this.collectTutorial.x = this.mainCamera.x + 200
         this.collectTutorial.active = true
         this.collectTutorialTimer = setTimeout(() => {
-          //this.monsterTutorial.x = this.mainCamera.x + 200
+          // this.monsterTutorial.x = this.mainCamera.x + 200
           this.firstCollect = true
           this.collectTutorialTimer = setTimeout(() => {
             this.collectTutorial.active = false
@@ -527,5 +527,5 @@ cc.Class({
         this.bonusText.active = false
       }, this.bonusAppearanceTime)
     }
-  },
+  }
 })

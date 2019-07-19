@@ -123,12 +123,12 @@ cc.Class({
 
     bonusText: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     bonusTimer: null,
     bonusAction: null,
-    isGameOver: false,
+    isGameOver: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -432,5 +432,5 @@ cc.Class({
         this.bonusText.active = false
       }, this.bonusAppearanceTime)
     }
-  },
+  }
 })
