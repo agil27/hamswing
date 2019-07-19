@@ -20,13 +20,15 @@ github仓库：[https://github.com/zhangxwww/hamswing](https://github.com/zhangx
 
 ## 重点与难点
 
-// 重点
+这款游戏的重点在于物理引擎的使用，包括刚体组件，关节组件，以及刚体之间的碰撞处理。
+
+仓鼠需要在森林之中来回飞跃，这需要使用刚体组件来实现其受到重力的效果。将该刚体组件的类型设置为dynamic，并设置了gravity scale。
 
 // 物理引擎 ropejoint  碰撞处理
 
 // 难点
 
-// 实现伸出与收回绳子的动画   绳子末端的爪子  无限背景  loadScene
+// 实现伸出与收回抓钩的动画   抓钩末端的钩子  无限背景  loadScene
 
 ## 游戏测试
 

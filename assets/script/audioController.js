@@ -46,7 +46,7 @@ cc.Class({
       type: cc.AudioSource
     },
 
-    // plays when ym kills enermy
+    // plays when ym kills enemy
     killMonsterAudio: {
       default: null,
       type: cc.AudioSource

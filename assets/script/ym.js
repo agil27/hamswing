@@ -118,7 +118,7 @@ cc.Class({
 
   onCollisionEnter (other, self) {
     if (other.node.name === 'monster' || other.node.name === 'ghost') {
-      this.collideWithEnermy(other)
+      this.collideWithenemy(other)
     } else if (other.node.name === 'star') {
       this.collideWithStar(other)
     } else if (other.node.name === 'mushroom') {
@@ -135,23 +135,23 @@ cc.Class({
     cc.game.emit('touchstar')
   },
 
-  collideWithEnermy (enermy) {
-    enermy.node.stopAllActions()
-    if (this.isTreadOnHead(enermy)) {
+  collideWithenemy (enemy) {
+    enemy.node.stopAllActions()
+    if (this.isTreadOnHead(enemy)) {
       let rigidbody = this.node.getComponent(cc.RigidBody)
       let v = rigidbody.linearVelocity
       rigidbody.linearVelocity = cc.v2(v.x, -v.y * 0.6)
       cc.game.emit('killmonster')
-      cc.game.emit('tread', enermy.node)
+      cc.game.emit('tread', enemy.node)
     } else {
-      if (enermy.node.name === 'monster') {
-        enermy.node.getComponent(cc.Animation).play('monster die')
+      if (enemy.node.name === 'monster') {
+        enemy.node.getComponent(cc.Animation).play('monster die')
       } else {
-        enermy.node.getComponent(cc.Animation).play('ghostDie')
+        enemy.node.getComponent(cc.Animation).play('ghostDie')
       }
       let scaleAction = cc.scaleBy(0.2, 2).easing(cc.easeCubicActionOut())
       let fadeout = cc.fadeOut(1.5)
-      enermy.node.runAction(cc.sequence(scaleAction, fadeout))
+      enemy.node.runAction(cc.sequence(scaleAction, fadeout))
       if (this.invincible === false) {
         cc.game.emit('gameover')
       } else {
@@ -160,10 +160,10 @@ cc.Class({
     }
   },
 
-  // is ym tread on the enermy's head
-  isTreadOnHead (enermy) {
-    let dx = this.node.x - enermy.node.x
-    let dy = this.node.y - enermy.node.y
+  // is ym tread on the enemy's head
+  isTreadOnHead (enemy) {
+    let dx = this.node.x - enemy.node.x
+    let dy = this.node.y - enemy.node.y
     let angle = Math.atan2(dy, dx)
     return Math.PI / 4 < angle && angle < Math.PI * 3 / 4
   },

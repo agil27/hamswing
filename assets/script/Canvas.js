@@ -48,7 +48,7 @@ cc.Class({
       type: cc.Prefab
     },
 
-    // position.x of the latest enermy
+    // position.x of the latest enemy
     lastGenerateX: 0,
     // position.x of the latest cloud
     lastCloudX: 0,
@@ -230,7 +230,7 @@ cc.Class({
       this.gameover()
     }
   },
-  
+
   generateBonusAction () {
     let fadeInAction = cc.fadeIn(this.fadeInDuration)
     let scaleAction = cc.scaleBy(this.scaleDuration, this.bonusScaleUpFactor)
@@ -431,6 +431,6 @@ cc.Class({
       this.bonusTimer = setTimeout(() => {
         this.bonusText.active = false
       }, this.bonusAppearanceTime)
-    }   
+    }
   },
 })
