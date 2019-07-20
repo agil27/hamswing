@@ -27,6 +27,16 @@ cc.Class({
     //         this._bar = value;
     //     }
     // },
+
+    rankPanel: {
+      default: null,
+      type: cc.Node,
+    },
+
+    closeRankBtn: {
+      default: null,
+      type: cc.Node,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -45,7 +55,12 @@ cc.Class({
   },
 
   start () {
-
+    this.setHideRankBtn()
+    if (CC_WECHATGAME) {
+      wx.getOpenDataContext().postMessage({
+        message: "User info get success."
+      });
+    }
   },
 
   startTutorial () {
@@ -57,7 +72,19 @@ cc.Class({
   },
 
   showRank () {
-    // cc.director.loadScene('rank')
-  }
+    this.rankPanel.active = true
+  },
+
+  hideRank () {
+    this.rankPanel.active = false
+  },
+
+  setHideRankBtn () {
+    this.closeRankBtn.on('touchstart', (() => {
+      console.log('close rank panel')
+      this.rankPanel.active = false
+    }).bind(this), this)
+  },
+
   // update (dt) {},
 })

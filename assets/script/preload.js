@@ -38,6 +38,12 @@ cc.Class({
       }
       console.log('load subpackage successfully.')
     })
+    cc.loader.downloader.loadSubpackage('audio', (err) => {
+      if (err) {
+        return console.error(err)
+      }
+      console.log('load subpackage successfully.')
+    })
   },
 
   start () {
