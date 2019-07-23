@@ -56,11 +56,6 @@ cc.Class({
 
   start () {
     this.setHideRankBtn()
-    if (CC_WECHATGAME) {
-      wx.getOpenDataContext().postMessage({
-        message: "User info get success."
-      });
-    }
   },
 
   startTutorial () {
@@ -72,10 +67,12 @@ cc.Class({
   },
 
   showRank () {
+    //this.rankPanel.x = 0
     this.rankPanel.active = true
   },
 
   hideRank () {
+    //this.rankPanel.x = -1600
     this.rankPanel.active = false
   },
 
@@ -85,6 +82,4 @@ cc.Class({
       this.rankPanel.active = false
     }).bind(this), this)
   },
-
-  // update (dt) {},
 })

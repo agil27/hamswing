@@ -262,6 +262,13 @@ cc.Class({
   },
 
   gameover () {
+    if (CC_WECHATGAME) {
+      wx.getOpenDataContext().postMessage({
+        message : 'score',
+        number : this.score
+      })
+    }
+
     this.node.getChildByName('tongue').active = false
     this.ym.enabled = false
     this.ym.active = false
