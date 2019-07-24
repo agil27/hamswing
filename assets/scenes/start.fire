@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.32037761211395266,
-      "y": 0.32037761211395266,
+      "x": 0.3221354246139526,
+      "y": 0.3221354246139526,
       "z": 1
     },
     "_quat": {
@@ -86,17 +86,17 @@
         "__id__": 32
       },
       {
-        "__id__": 42
+        "__id__": 41
       }
     ],
     "_active": true,
     "_level": 0,
     "_components": [
       {
-        "__id__": 61
+        "__id__": 60
       },
       {
-        "__id__": 62
+        "__id__": 61
       }
     ],
     "_prefab": null,
@@ -1670,9 +1670,6 @@
       },
       {
         "__id__": 40
-      },
-      {
-        "__id__": 41
       }
     ],
     "_N$interactable": true,
@@ -1765,16 +1762,6 @@
     "customEventData": ""
   },
   {
-    "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 42
-    },
-    "component": "",
-    "_componentId": "802de9i229IgpSXhPw9nlwP",
-    "handler": "showCanvas",
-    "customEventData": ""
-  },
-  {
     "__type__": "cc.Node",
     "_name": "rankPanel",
     "_objFlags": 0,
@@ -1783,32 +1770,32 @@
     },
     "_children": [
       {
-        "__id__": 43
+        "__id__": 42
       },
       {
-        "__id__": 46
+        "__id__": 45
       },
       {
-        "__id__": 49
+        "__id__": 48
       },
       {
-        "__id__": 51
+        "__id__": 50
       },
       {
-        "__id__": 53
+        "__id__": 52
       },
       {
-        "__id__": 56
+        "__id__": 55
       },
       {
-        "__id__": 58
+        "__id__": 57
       }
     ],
     "_active": false,
     "_level": 1,
     "_components": [
       {
-        "__id__": 60
+        "__id__": 59
       }
     ],
     "_prefab": null,
@@ -1861,17 +1848,17 @@
     "_name": "mask",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 44
+        "__id__": 43
       },
       {
-        "__id__": 45
+        "__id__": 44
       }
     ],
     "_prefab": null,
@@ -1924,7 +1911,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 43
+      "__id__": 42
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -1952,7 +1939,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 43
+      "__id__": 42
     },
     "_enabled": true,
     "_layoutSize": {
@@ -1985,17 +1972,17 @@
     "_name": "blankmask",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 46
       },
       {
-        "__id__": 48
+        "__id__": 47
       }
     ],
     "_prefab": null,
@@ -2048,7 +2035,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 46
+      "__id__": 45
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2076,7 +2063,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 46
+      "__id__": 45
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2109,14 +2096,14 @@
     "_name": "rankbg",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 50
+        "__id__": 49
       }
     ],
     "_prefab": null,
@@ -2169,7 +2156,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 49
+      "__id__": 48
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2197,14 +2184,14 @@
     "_name": "close",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 52
+        "__id__": 51
       }
     ],
     "_prefab": null,
@@ -2257,7 +2244,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 51
+      "__id__": 50
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2285,17 +2272,17 @@
     "_name": "rankCanvas",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 54
+        "__id__": 53
       },
       {
-        "__id__": 55
+        "__id__": 54
       }
     ],
     "_prefab": null,
@@ -2348,7 +2335,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 53
+      "__id__": 52
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2374,7 +2361,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 53
+      "__id__": 52
     },
     "_enabled": false,
     "_fps": 60,
@@ -2385,14 +2372,14 @@
     "_name": "ranknext",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 57
+        "__id__": 56
       }
     ],
     "_prefab": null,
@@ -2445,7 +2432,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 56
+      "__id__": 55
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2473,14 +2460,14 @@
     "_name": "rankprev",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 41
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 59
+        "__id__": 58
       }
     ],
     "_prefab": null,
@@ -2533,7 +2520,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 58
+      "__id__": 57
     },
     "_enabled": true,
     "_srcBlendFactor": 770,
@@ -2561,18 +2548,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 42
+      "__id__": 41
     },
     "_enabled": true,
     "rankContext": {
-      "__id__": 53
+      "__id__": 52
     },
+    "page": 0,
     "sharedCanvas": null,
     "needUpdate": false,
     "texture": null,
     "spriteFrame": null,
     "openDataContext": null,
-    "page": 0,
     "_id": "fe58J3LkZF2Z+82eTpVsmh"
   },
   {
@@ -2601,16 +2588,16 @@
     },
     "_enabled": true,
     "rankPanel": {
-      "__id__": 42
+      "__id__": 41
     },
     "closeRankBtn": {
-      "__id__": 51
+      "__id__": 50
     },
     "nextBtn": {
-      "__id__": 56
+      "__id__": 55
     },
     "prevBtn": {
-      "__id__": 58
+      "__id__": 57
     },
     "_id": "63t8Cf5HtB1pX6vd3YFmde"
   }

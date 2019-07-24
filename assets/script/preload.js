@@ -32,20 +32,13 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
+    //加载完图片分包资源再启动游戏开始场景
     cc.loader.downloader.loadSubpackage('texture', (err) => {
       if (err) {
         return console.error(err)
       }
       console.log('load subpackage successfully.')
     })
-    /*
-    cc.loader.downloader.loadSubpackage('audio', (err) => {
-      if (err) {
-        return console.error(err)
-      }
-      console.log('load subpackage successfully.')
-    })
-    */
   },
 
   start () {

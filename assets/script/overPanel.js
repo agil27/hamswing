@@ -35,10 +35,12 @@ cc.Class({
 
   start () {
     this.ym = this.node.parent.getChildByName('ym')
+    //显示在最上层
     this.zIndex = 10000
   },
 
   update (dt) {
+    //跟随主摄像机移动
     this.node.x = this.node.parent.getChildByName('Main Camera').x
     this.node.y = 0
   }

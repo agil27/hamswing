@@ -28,20 +28,12 @@ cc.Class({
     //     }
     // },
 
-        rankContext: {
-            default: null,
-            type: cc.Node,
-        },
-      
-        sharedCanvas: null,
-        needUpdate: false,
-        texture: null,
-        spriteFrame: null,
-        openDataContext: null,
-
-        page: 0
+    rankContext: {
+        default: null,
+        type: cc.Node,
     },
 
+    page: 0,
     sharedCanvas: null,
     needUpdate: false,
     texture: null,
@@ -54,19 +46,15 @@ cc.Class({
     this.rankContext = this.node.getChildByName('rankCanvas').getComponent(cc.Sprite)
     this.openDataContext = wx.getOpenDataContext()
     this.sharedCanvas = this.openDataContext.canvas
-
+    this.sharedCanvas.width = 700
+    this.sharedCanvas.height = 400
+    this.showCanvas()
     cc.game.on('next page', this.nextPage.bind(this), this)
     cc.game.on('prev page', this.prevPage.bind(this), this)
   },
 
   start () {
-    this.initCanvas()
-    this.showCanvas()
-  },
-
-  initCanvas() {
-    this.sharedCanvas.width = 700
-    this.sharedCanvas.height = 400
+    //this.showCanvas()
   },
     
   update (dt) {

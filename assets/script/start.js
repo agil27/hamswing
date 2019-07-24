@@ -54,6 +54,7 @@ cc.Class({
   onLoad () {},
 
   start () {
+    //为关闭排行榜、下一页、上一页按钮点击事件发送信号
     this.setHideRankBtn()
     this.setNextBtn()
     this.setPrevBtn()
@@ -76,7 +77,7 @@ cc.Class({
   },
 
   setHideRankBtn () {
-    this.closeRankBtn.on('touchstart', () => {
+    this.closeRankBtn.on('touchstart', (() => {
       console.log('close rank panel')
       this.rankPanel.active = false
     }).bind(this), this)

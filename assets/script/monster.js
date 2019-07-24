@@ -20,8 +20,10 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
+    //怪物上下移动，增加难度
     this.difficultify()
-    // cc.director.getCollisionManager().enabled = true
+
+    //接受被踩头的信号，向下坠落
     cc.game.on('tread', (obj) => {
       if (obj === this.node) {
         this.dropDown()
@@ -39,16 +41,8 @@ cc.Class({
     }
   },
 
-  /*
-  generateDribbleAction() {
-    let moveLeft = cc.moveBy(this.moveDuration, cc.v2(-this.distanceX, this.distanceY))
-    let moveRight = cc.moveBy(this.moveDuration, cc.v2(this.distanceX, -this.distanceY))
-    let move = cc.sequence(moveLeft, moveRight)
-    return cc.repeatForever(move)
-  },
-  */
-
   difficultify () {
+    //随即决定是否上下浮动，以及先向下还是先向上
     let rand = Math.random()
     if (this.node !== null) {
       if (rand > 0.5) {
@@ -62,13 +56,8 @@ cc.Class({
     }
   },
 
-  start () {},
-
-  onCollideWithHero () {
-
-  },
-
-  onDestroy () {},
+  //start () {},
+  //onDestroy () {},
   // update (dt) {},
 
   dropDown () {
