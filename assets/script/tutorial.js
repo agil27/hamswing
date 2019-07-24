@@ -12,7 +12,7 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    // Prefabs
+    // Prefab们
     monsterPrefab: {
       default: null,
       type: cc.Prefab
@@ -48,17 +48,18 @@ cc.Class({
       type: cc.Prefab
     },
 
-    // position.x of the latest enemy
+    // 最近敌人、云、仓鼠的x坐标
     lastGenerateX: 0,
-    // position.x of the latest cloud
     lastCloudX: 0,
-    // position.x of ym in the last frame
     lastYmX: 0,
 
+    // 得分
     score: 0,
-    // 1 for normal and 2 if star has been eaten
+
+    // 1为正常计分模式，2为吃了星星后的双倍计分模式
     scoreFactor: 1,
 
+    // 一些有关动作特效的常数
     bonusAppearanceTime: 2000,
     fadeInDuration: 0.5,
     scaleDuration: 0.5,
@@ -66,9 +67,8 @@ cc.Class({
     touchTutorialDuration: 5000,
     collectTutorialDuration: 5000,
     monsterTutorialDuration: 5000,
-    doubleStateTimer: null,
 
-    // Nodes
+    // 节点
     ym: {
       default: null,
       type: cc.Node
@@ -144,19 +144,25 @@ cc.Class({
       type: cc.Node
     },
 
+    // 计时器
+    doubleStateTimer: null,
     touchTutorialTimer: null,
     collectTutorialTimer: null,
     monsterTutorialTimer: null,
     bonusTimer: null,
     bonusAction: null,
+
+    // 游戏常量
     isGameOver: false,
 
-    // tutorial mode control variables
+    // 控制教学模式的变量
     notCollectYet: true,
     notMeetMonsterYet: true,
     firstTouch: false,
     firstCollect: false,
-    firstMonster: false
+    firstMonster: false,
+    readyToGenerateStars: false,
+    readyToGenerateMonsters: false
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -280,23 +286,20 @@ cc.Class({
     return cc.spawn(fadeInAction, scaleAction)
   },
 
-  // generate star, mushroom, ghost or monster
   generateObject () {
     if (!this.isGameOver) {
       let obj
-      let rand = Math.random()
-      if (rand > 0.8) {
-        obj = cc.instantiate(this.mushroomPrefab)
-      } else if (rand > 0.7) {
-        obj = cc.instantiate(this.starPrefab)
-      } else if (rand > 0.3) {
-        obj = cc.instantiate(this.ghostPrefab)
-      } else {
-        obj = cc.instantiate(this.monsterPrefab)
+
+      // 根据教程进展的进度决定产生的对象
+      // 一开始只产生星星，后来都产生
+      if (this.readyToGenerateMonsters) {
+        obj = this.generateAll()
+      } else if (this.readyToGenerateStars) {
+        obj = this.generateCollections()
       }
-      // this.displayTutorial(obj.name)
+      
       let pos = this.generatePosition()
-      if (pos !== null) {
+      if (pos !== null && obj) {
         this.objsLayer.addChild(obj)
         obj.setPosition(pos)
       }
@@ -305,15 +308,45 @@ cc.Class({
     }
   },
 
+  generateAll() {
+    let rand = Math.random()
+    if (rand > 0.8) {
+      return cc.instantiate(this.mushroomPrefab)
+    } else if (rand > 0.7) {
+      return cc.instantiate(this.starPrefab)
+    } else if (rand > 0.3) {
+      return cc.instantiate(this.ghostPrefab)
+    } else {
+      return cc.instantiate(this.monsterPrefab)    
+    }
+  },
+
+  generateCollections () {
+    let rand = Math.random()
+    if (rand >= 0.5) {
+      return cc.instantiate(this.mushroomPrefab)
+    } else {
+      return cc.instantiate(this.starPrefab)
+    }
+  },
+
   displayTutorial (name) {
+    // 一个恐怖的回调函数嵌套，用来计时产生提示文字
     if (this.node) {
       this.touchTutorialTimer = setTimeout(() => {
+        // 玩法提示的标志该消失了
         this.touchTutorial.active = false
         this.collectTutorial.active = true
+        // 可以产生星星了
+        this.readyToGenerateStars = true
         this.collectTutorialTimer = setTimeout(() => {
+          // 收集的提示标志该移动了
           this.firstCollect = true
           this.collectTutorialTimer = setTimeout(() => {
+            // 收集的提示标志该消失了
             this.collectTutorial.active = false
+            // 可以产生小怪兽了
+            this.readyToGenerateMonsters = true
             this.monsterTutorial.active = true
             this.monsterTutorialTimer = setTimeout(() => {
               this.firstMonster = true
@@ -352,7 +385,6 @@ cc.Class({
   touchStar () {
     this.scoreFactor = 2
     this.doubleScoreText.active = true
-    // if touch 2 or more stars in 3 seconds
     if (this.doubleStateTimer) {
       clearTimeout(this.doubleStateTimer)
     }
@@ -365,7 +397,6 @@ cc.Class({
     }, 3000)
   },
 
-  // generate next position for star/mushroom/ghost/monster
   generatePosition () {
     let minY = -150
     let maxY = 250
@@ -380,7 +411,6 @@ cc.Class({
     return cc.v2(x, y)
   },
 
-  // find the time interval to generate next s/m/g/m
   generateInterval () {
     let minTimeInterval = 1000
     let maxTimeInterval = 2500
@@ -399,7 +429,7 @@ cc.Class({
     if (!this.isGameOver) {
       let cloud
       let typeRand = Math.random()
-      // which type of cloud
+
       if (typeRand > 0.6) {
         cloud = cc.instantiate(this.cloud0Prefab)
       } else if (typeRand > 0.2) {
@@ -407,7 +437,7 @@ cc.Class({
       } else {
         cloud = cc.instantiate(this.cloud2Prefab)
       }
-      // which layer is the cloud on
+
       let layerRand = Math.random()
       let layer
       if (layerRand > 0.6) {
@@ -422,8 +452,6 @@ cc.Class({
     }
   },
 
-  // generate position of the next cloud
-  // bias is used to trans between different coordinates
   generateCloudPosition (bias) {
     let cloudX = this.lastCloudX + (Math.random() + 1) * 500
     let yMin = 80
@@ -433,30 +461,24 @@ cc.Class({
     return cc.v2(cloudX - bias.x, cloudY - bias.y)
   },
 
-  // update the position of all the clouds
   updateClouds () {
-    // the range of usefull clouds
     let cloudRangeX = {
       lowerbound: this.ym.x - this.node.width,
       upperbound: this.ym.x + this.node.width
     }
 
     let speed = this.ym.getComponent(cc.RigidBody).linearVelocity.x
-    // the clouds in different layers have different speed
     this.updateCloudsInLayer(this.fasterLayer, speed * 0.001, cloudRangeX)
     this.updateCloudsInLayer(this.slowerLayer, speed * 0.005, cloudRangeX)
-    // if it is able to generate new cloud
     if (this.lastCloudX < cloudRangeX.upperbound) {
       this.generateCloud()
     }
   },
 
-  // update clouds in certain layer
   updateCloudsInLayer (layer, speed, rangeX) {
     let clouds = layer.children
     for (let c of clouds) {
       if (c.x < rangeX.lowerbound) {
-        // delete the clouds out of screen
         c.destroy()
       } else {
         c.x -= speed
@@ -473,7 +495,6 @@ cc.Class({
     }
   },
 
-  // delete star/mushroom/ghost/monster (s) out of screen
   clearObjsOutOfScreen () {
     if (this.ym) {
       let range = {
@@ -484,7 +505,6 @@ cc.Class({
     }
   },
 
-  // delete s/m/g/m out of the range
   clearObjsInRange (range) {
     let objs = this.objsLayer.children
     for (let o of objs) {
