@@ -30,29 +30,18 @@ cc.Class({
 
     rankPanel: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     closeRankBtn: {
       default: null,
-      type: cc.Node,
-    },
+      type: cc.Node
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
-    /*
-    (async () => {
-      cc.loader.downloader.loadSubpackage('texture', (err) => {
-        if (err) {
-          return console.error(err)
-        }
-        console.log('load subpackage successfully.')
-      })
-    })()
-    */
-  },
+  onLoad () {},
 
   start () {
     this.setHideRankBtn()
@@ -67,19 +56,17 @@ cc.Class({
   },
 
   showRank () {
-    //this.rankPanel.x = 0
     this.rankPanel.active = true
   },
 
   hideRank () {
-    //this.rankPanel.x = -1600
     this.rankPanel.active = false
   },
 
   setHideRankBtn () {
-    this.closeRankBtn.on('touchstart', (() => {
+    this.closeRankBtn.on('touchstart', () => {
       console.log('close rank panel')
       this.rankPanel.active = false
-    }).bind(this), this)
-  },
+    }, this)
+  }
 })
