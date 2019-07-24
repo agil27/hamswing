@@ -306,30 +306,11 @@ cc.Class({
   },
 
   displayTutorial (name) {
-    /*
-    if (name === 'star' || name === 'mushroom') {
-      if (this.notCollectYet) {
-        this.touchTutorial.active = false
-        this.collectTutorial.x = this.mainCamera.x + 200
-        this.collectTutorial.active = true
-        this.notCollectYet = false
-      }
-    }
-    if (name === 'monster' || name === 'ghost') {
-      if (this.notMeetMonsterYet) {
-        this.monsterTutorial.x = this.mainCamera.x + 200
-        this.monsterTutorial.active = true
-        this.notMeetMonsterYet = false
-      }
-    }
-    */
     if (this.node) {
       this.touchTutorialTimer = setTimeout(() => {
         this.touchTutorial.active = false
-        // this.collectTutorial.x = this.mainCamera.x + 200
         this.collectTutorial.active = true
         this.collectTutorialTimer = setTimeout(() => {
-          // this.monsterTutorial.x = this.mainCamera.x + 200
           this.firstCollect = true
           this.collectTutorialTimer = setTimeout(() => {
             this.collectTutorial.active = false

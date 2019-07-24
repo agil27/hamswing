@@ -8,24 +8,25 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+/*
+  本文件描述了抓钩类
+  由于中途设想主角为吐舌头粘天花板晃悠的青蛙，所以取了这个名字
+  因为文件结构原因保留了这个命名
+*/
+
 cc.Class({
   extends: cc.Component,
 
   properties: {
-    // current length of the tongue
+    // 有关抓钩的一些参数
     curLength: 0,
-    // the speed to become longer
     lengthenSpeed: 25,
-    // the speed to become shorter
     shortenSpeed: 25,
-    // current angle
     angle: 0,
-    // if it is lengthening
     isLengthening: false,
-    // if it is shortening
     isShortening: false,
 
-    // Nodes
+    // 节点
     ym: {
       default: null,
       type: cc.Node
@@ -43,7 +44,7 @@ cc.Class({
       type: cc.Node
     },
 
-    // the attch point in different coordinates
+    // 不同坐标下抓钩附着的点
     attachPointInWorldSpace: {
       default: new cc.Vec2()
     },
@@ -55,11 +56,14 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
+    // 先设为不可见
     this.node.enabled = false
 
+    // 收到仓鼠发来的信号进行伸长或缩短
     cc.game.on('stickout', this.lengthen, this)
     cc.game.on('rollup', this.shorten, this)
 
+    // 初始化控件
     this.ym = this.node.parent.getChildByName('ym')
     this.ropeJoint = this.ym.getComponent(cc.RopeJoint)
     this.ceiling = this.node.parent.getChildByName('ceiling')
@@ -70,23 +74,23 @@ cc.Class({
   },
 
   update (dt) {
-    // find the ends of tongue and compute distance and angle
+    // 找到抓钩附着的点，计算长度和角度
     let p1 = this.ym.position
     let p2 = this.attachPointInWorldSpace
     let distance = this.calculateDistance(p1, p2)
     let angle = this.calculateAngle(p1, p2)
 
-    // become longer
+    // 如果正在伸长
     if (this.isLengthening) {
       this.curLength += this.lengthenSpeed
-      // long enough to attach
+      // 如果已经足够长了
       if (this.curLength > distance) {
         this.curLength = distance
         this.isLengthening = false
         this.attach(this.attachPointInNodeSpace)
       }
     }
-    // become shorter
+    // 如果正在缩短
     if (this.isShortening) {
       this.curLength -= this.shortenSpeed
       // short enough
@@ -96,10 +100,13 @@ cc.Class({
         this.isShortening = false
       }
     }
+
+    // 绘制抓钩
     this.node.width = this.curLength
     this.node.position = this.ym.position
     this.node.rotation = angle
 
+    // 确定钩爪的位置
     this.claw.x = this.node.width - this.claw.width / 2 + 1
   },
 
@@ -123,7 +130,7 @@ cc.Class({
     }
   },
 
-  // attach to the conneted anchor
+  // 绳关节模型的连接
   attach (connectedAnchor) {
     this.ropeJoint.enabled = true
     this.ropeJoint.connectedBody = this.ceiling.getComponent(cc.RigidBody)
@@ -134,7 +141,7 @@ cc.Class({
     this.ropeJoint.apply()
   },
 
-  // find the attach point on the ceiling, at the top right of ym
+  // 在仓鼠的右上方45度定位抓钩应该附着的点
   findAttachPoint () {
     return {
       nodeSpace: cc.v2(this.ym.x + this.ceiling.y - this.ym.y - this.ceiling.x, 0),

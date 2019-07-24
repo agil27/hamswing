@@ -54,7 +54,7 @@ cc.Class({
   onLoad () {},
 
   start () {
-    //为关闭排行榜、下一页、上一页按钮点击事件发送信号
+    // 为关闭排行榜、下一页、上一页按钮点击事件发送信号
     this.setHideRankBtn()
     this.setNextBtn()
     this.setPrevBtn()
