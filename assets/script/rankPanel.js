@@ -38,6 +38,8 @@ cc.Class({
         texture: null,
         spriteFrame: null,
         openDataContext: null,
+
+        page: 0
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,11 +49,14 @@ cc.Class({
         this.rankContext = this.node.getChildByName('rankCanvas').getComponent(cc.Sprite)
         this.openDataContext = wx.getOpenDataContext()
         this.sharedCanvas = this.openDataContext.canvas
+
+        cc.game.on('next page', this.nextPage.bind(this), this)
+        cc.game.on('prev page', this.prevPage.bind(this), this)
     },
 
     start () {
         this.initCanvas()
-        //this.showCanvas()
+        this.showCanvas()
     },
 
     initCanvas() {
@@ -74,11 +79,12 @@ cc.Class({
         if (!this.sharedCanvas) {
             this.initCanvas()
         }
-    
-        this.openDataContext.postMessage({
-            message: 'render'
-        })
 
+        this.openDataContext.postMessage({
+            message: 'render',
+            page: this.page,
+        })
+        
         this.needUpdate = true    
       },
     
@@ -91,5 +97,21 @@ cc.Class({
         if (this.texture) {
           this.texture.destroy()
         }
+    },
+
+    nextPage () {
+        console.log('知道翻页了！', this.page)
+        this.page += 1
+        this.showCanvas()
+    },
+
+    prevPage () {
+        console.log('知道上一页了！', this.page)
+        this.page = this.max(0, this.page - 1)
+        this.showCanvas()
+    },
+
+    max(a, b) {
+      return a > b ? a : b
     },
 });

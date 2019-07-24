@@ -37,6 +37,16 @@ cc.Class({
       default: null,
       type: cc.Node,
     },
+
+    nextBtn: {
+      default: null,
+      type: cc.Node,
+    },
+
+    prevBtn: {
+      default: null,
+      type: cc.Node,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -56,6 +66,8 @@ cc.Class({
 
   start () {
     this.setHideRankBtn()
+    this.setNextBtn()
+    this.setPrevBtn()
   },
 
   startTutorial () {
@@ -80,6 +92,20 @@ cc.Class({
     this.closeRankBtn.on('touchstart', (() => {
       console.log('close rank panel')
       this.rankPanel.active = false
+    }).bind(this), this)
+  },
+
+  setNextBtn () {
+    this.nextBtn.on('touchstart', (() => {
+      console.log('next page')
+      cc.game.emit('next page')
+    }).bind(this), this)
+  },
+
+  setPrevBtn () {
+    this.prevBtn.on('touchstart', (() => {
+      console.log('prev page')
+      cc.game.emit('prev page')
     }).bind(this), this)
   },
 })
