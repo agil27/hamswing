@@ -48,15 +48,13 @@ cc.Class({
       type: cc.Prefab
     },
 
-    // position.x of the latest enemy
+    // 各种控件最近一次的x坐标
     lastGenerateX: 0,
-    // position.x of the latest cloud
     lastCloudX: 0,
-    // position.x of ym in the last frame
     lastYmX: 0,
 
     score: 0,
-    // 1 for normal and 2 if star has been eaten
+    // 得分倍率；吃星星双倍得分
     scoreFactor: 1,
 
     bonusAppearanceTime: 2000,
@@ -65,7 +63,7 @@ cc.Class({
     bonusScaleUpFactor: 2,
     doubleStateTimer: null,
 
-    // Nodes
+    // 节点
     ym: {
       default: null,
       type: cc.Node
@@ -237,7 +235,7 @@ cc.Class({
     return cc.spawn(fadeInAction, scaleAction)
   },
 
-  // generate star, mushroom, ghost or monster
+  // 产生星星蘑菇怪兽
   generateObject () {
     if (!this.isGameOver) {
       let obj
@@ -296,7 +294,7 @@ cc.Class({
     }, 3000)
   },
 
-  // generate next position for star/mushroom/ghost/monster
+  // 产生星星蘑菇怪兽的位置
   generatePosition () {
     let minY = -150
     let maxY = 250
@@ -311,7 +309,7 @@ cc.Class({
     return cc.v2(x, y)
   },
 
-  // find the time interval to generate next s/m/g/m
+  // 产生生成星蘑怪的时间间隔
   generateInterval () {
     let minTimeInterval = 1000
     let maxTimeInterval = 2500
@@ -330,7 +328,7 @@ cc.Class({
     if (!this.isGameOver) {
       let cloud
       let typeRand = Math.random()
-      // which type of cloud
+      // 云的种类
       if (typeRand > 0.6) {
         cloud = cc.instantiate(this.cloud0Prefab)
       } else if (typeRand > 0.2) {
@@ -338,7 +336,7 @@ cc.Class({
       } else {
         cloud = cc.instantiate(this.cloud2Prefab)
       }
-      // which layer is the cloud on
+      // 云在哪层
       let layerRand = Math.random()
       let layer
       if (layerRand > 0.6) {
@@ -353,8 +351,8 @@ cc.Class({
     }
   },
 
-  // generate position of the next cloud
-  // bias is used to trans between different coordinates
+  // 产生下一片云的位置
+  // bias 用来做坐标转换
   generateCloudPosition (bias) {
     let cloudX = this.lastCloudX + (Math.random() + 1) * 500
     let yMin = 80
@@ -364,30 +362,30 @@ cc.Class({
     return cc.v2(cloudX - bias.x, cloudY - bias.y)
   },
 
-  // update the position of all the clouds
+  // 更新云的位置
   updateClouds () {
-    // the range of usefull clouds
+    // 有效的云的范围
     let cloudRangeX = {
       lowerbound: this.ym.x - this.node.width,
       upperbound: this.ym.x + this.node.width
     }
 
     let speed = this.ym.getComponent(cc.RigidBody).linearVelocity.x
-    // the clouds in different layers have different speed
+    // 不同层的云速度不同
     this.updateCloudsInLayer(this.fasterLayer, speed * 0.001, cloudRangeX)
     this.updateCloudsInLayer(this.slowerLayer, speed * 0.005, cloudRangeX)
-    // if it is able to generate new cloud
+    // 如果可以产生新的云
     if (this.lastCloudX < cloudRangeX.upperbound) {
       this.generateCloud()
     }
   },
 
-  // update clouds in certain layer
+  // 更新特定层中的云
   updateCloudsInLayer (layer, speed, rangeX) {
     let clouds = layer.children
     for (let c of clouds) {
       if (c.x < rangeX.lowerbound) {
-        // delete the clouds out of screen
+        // 删除屏幕外的云
         c.destroy()
       } else {
         c.x -= speed
@@ -404,7 +402,7 @@ cc.Class({
     }
   },
 
-  // delete star/mushroom/ghost/monster (s) out of screen
+  // 删除屏幕外的星蘑怪
   clearObjsOutOfScreen () {
     if (this.ym) {
       let range = {
@@ -415,7 +413,7 @@ cc.Class({
     }
   },
 
-  // delete s/m/g/m out of the range
+  // 删除屏幕内的星蘑怪
   clearObjsInRange (range) {
     let objs = this.objsLayer.children
     for (let o of objs) {

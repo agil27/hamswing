@@ -42,30 +42,26 @@ cc.Class({
   },
 
   onLoad () {
-    //初始化画布等公用接口
+    // 初始化画布等公用接口
     this.texture = new cc.Texture2D()
     this.rankContext = this.node.getChildByName('rankCanvas').getComponent(cc.Sprite)
     this.openDataContext = wx.getOpenDataContext()
     this.sharedCanvas = this.openDataContext.canvas
 
-    //设置画布大小
+    // 设置画布大小
     this.sharedCanvas.width = 700
     this.sharedCanvas.height = 400
     
-    //显示画布
+    // 显示画布
     this.showCanvas()
 
-    //对父控件发射的信号进行处理
+    // 对父控件发射的信号进行处理
     cc.game.on('next page', this.nextPage.bind(this), this)
     cc.game.on('prev page', this.prevPage.bind(this), this)
   },
-
-  start () {
-    //this.showCanvas()
-  },
     
   update (dt) {
-    //采用变量needUpdate控制是否更新
+    // 采用变量needUpdate控制是否更新
     if (this.needUpdate) {
       this.texture.initWithElement(this.sharedCanvas)
       this.texture.handleLoadedTexture()
@@ -79,13 +75,13 @@ cc.Class({
       this.initCanvas()
     }
 
-    //给开放数据域发送消息让其渲染排行榜图像，page用来传递当前页数
+    // 给开放数据域发送消息让其渲染排行榜图像，page用来传递当前页数
     this.openDataContext.postMessage({
       message: 'render',
       page: this.page,
     })
         
-    //仅在showCanvas的时候才开始更新
+    // 仅在showCanvas的时候才开始更新
     this.needUpdate = true    
   },
 
@@ -95,7 +91,7 @@ cc.Class({
   },
 
   prevPage () {
-    //如果已经是最前一页，那么不翻页了
+    // 如果已经是最前一页，那么不翻页了
     this.page = this.max(0, this.page - 1)
     this.showCanvas()
   },
