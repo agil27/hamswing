@@ -264,8 +264,8 @@ cc.Class({
   gameover () {
     if (CC_WECHATGAME) {
       wx.getOpenDataContext().postMessage({
-        message : 'score',
-        number : this.score
+        message: 'score',
+        number: this.score
       })
     }
 
