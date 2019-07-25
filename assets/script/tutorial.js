@@ -144,6 +144,11 @@ cc.Class({
       type: cc.Node
     },
 
+    audioButton: {
+      default: null,
+      type: cc.Node
+    },
+
     // 计时器
     doubleStateTimer: null,
     touchTutorialTimer: null,
@@ -263,6 +268,7 @@ cc.Class({
     if (!this.firstMonster) {
       this.monsterTutorial.x = this.mainCamera.x + 200
     }
+    this.audioButton.x = this.mainCamera.x + 350
   },
 
   updateInfiniteBackground () {

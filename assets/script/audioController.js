@@ -101,6 +101,7 @@ cc.Class({
         this.audioEnabled = true
       }
     })
+
     cc.game.on('disable audio', () => {
       if (this.bgmAudio && this.bgmAudio.isPlaying) {
         this.bgmAudio.stop()
@@ -109,6 +110,24 @@ cc.Class({
         this.audioEnabled = false
       }
     })
+  },
+
+  onEnable () {
+    if (this.bgmAudio && !this.bgmAudio.isPlaying) {
+      this.bgmAudio.play()
+    }
+    if (!this.audioEnabled) {
+      this.audioEnabled = true
+    }
+  },
+
+  onDisable () {
+    if (this.bgmAudio && this.bgmAudio.isPlaying) {
+      this.bgmAudio.stop()
+    }
+    if (this.audioEnabled) {
+      this.audioEnabled = false
+    }
   },
 
   start () {

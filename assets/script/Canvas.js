@@ -124,6 +124,11 @@ cc.Class({
       type: cc.Node
     },
 
+    audioButton: {
+      default: null,
+      type: cc.Node
+    },
+
     bonusTimer: null,
     bonusAction: null,
     isGameOver: false
@@ -212,6 +217,7 @@ cc.Class({
     this.invincibleText.x = this.mainCamera.x
     this.doubleScoreText.x = this.mainCamera.x
     this.bonusText.x = this.mainCamera.x + 150
+    this.audioButton.x = this.mainCamera.x + 350
   },
 
   updateInfiniteBackground () {
