@@ -1,0 +1,1 @@
+game-star_01.png.png 86 96, game-star_02.png.png 323 96, game-star_03.png.png 555 96, game-star_04.png.png 754 96, game-star_05.png.png 875 96, game-star_06.png.png 1069 96, game-star_07.png.png 1286 96.
