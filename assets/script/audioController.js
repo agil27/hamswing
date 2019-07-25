@@ -50,30 +50,63 @@ cc.Class({
     killMonsterAudio: {
       default: null,
       type: cc.AudioSource
-    }
+    },
+
+    clickButtonAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+
+    bgmAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+
+    audioEnabled: true
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
     cc.game.on('touchstar', () => {
-      if (this.touchToolsAudio) {
+      if (this.audioEnabled && this.touchToolsAudio) {
         this.touchToolsAudio.play()
       }
     })
     cc.game.on('invincible start', () => {
-      if (this.invincibleAudio) {
+      if (this.audioEnabled && this.invincibleAudio) {
         this.invincibleAudio.play()
       }
     })
     cc.game.on('gameover', () => {
-      if (this.gameoverAudio) {
+      if (this.audioEnabled && this.gameoverAudio) {
         this.gameoverAudio.play()
       }
     })
     cc.game.on('killmonster', () => {
-      if (this.killMonsterAudio) {
+      if (this.audioEnabled && this.killMonsterAudio) {
         this.killMonsterAudio.play()
+      }
+    })
+    cc.game.on('click button', () => {
+      if (this.audioEnabled && this.clickButtonAudio) {
+        this.clickButtonAudio.play()
+      }
+    })
+    cc.game.on('enable audio', () => {
+      if (this.bgmAudio && !this.bgmAudio.isPlaying) {
+        this.bgmAudio.play()
+      }
+      if (!this.audioEnabled) {
+        this.audioEnabled = true
+      }
+    })
+    cc.game.on('disable audio', () => {
+      if (this.bgmAudio && this.bgmAudio.isPlaying) {
+        this.bgmAudio.stop()
+      }
+      if (this.audioEnabled) {
+        this.audioEnabled = false
       }
     })
   },

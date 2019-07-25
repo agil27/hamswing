@@ -29,8 +29,8 @@ cc.Class({
     // },
 
     rankContext: {
-        default: null,
-        type: cc.Node,
+      default: null,
+      type: cc.Node
     },
 
     page: 0,
@@ -51,7 +51,7 @@ cc.Class({
     // 设置画布大小
     this.sharedCanvas.width = 700
     this.sharedCanvas.height = 400
-    
+
     // 显示画布
     this.showCanvas()
 
@@ -59,7 +59,7 @@ cc.Class({
     cc.game.on('next page', this.nextPage.bind(this), this)
     cc.game.on('prev page', this.prevPage.bind(this), this)
   },
-    
+
   update (dt) {
     // 采用变量needUpdate控制是否更新
     if (this.needUpdate) {
@@ -69,7 +69,7 @@ cc.Class({
       this.rankContext.spriteFrame = this.spriteFrame
     }
   },
-    
+
   showCanvas () {
     if (!this.sharedCanvas) {
       this.initCanvas()
@@ -78,11 +78,11 @@ cc.Class({
     // 给开放数据域发送消息让其渲染排行榜图像，page用来传递当前页数
     this.openDataContext.postMessage({
       message: 'render',
-      page: this.page,
+      page: this.page
     })
-        
+
     // 仅在showCanvas的时候才开始更新
-    this.needUpdate = true    
+    this.needUpdate = true
   },
 
   nextPage () {
@@ -96,7 +96,7 @@ cc.Class({
     this.showCanvas()
   },
 
-  max(a, b) {
+  max (a, b) {
     return a > b ? a : b
-  },
-});
+  }
+})

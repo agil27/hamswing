@@ -20,10 +20,10 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    //怪物上下移动，增加难度
+    // 怪物上下移动，增加难度
     this.difficultify()
 
-    //接受被踩头的信号，向下坠落
+    // 接受被踩头的信号，向下坠落
     cc.game.on('tread', (obj) => {
       if (obj === this.node) {
         this.dropDown()
@@ -42,7 +42,7 @@ cc.Class({
   },
 
   difficultify () {
-    //随即决定是否上下浮动，以及先向下还是先向上
+    // 随即决定是否上下浮动，以及先向下还是先向上
     let rand = Math.random()
     if (this.node !== null) {
       if (rand > 0.5) {
@@ -56,8 +56,8 @@ cc.Class({
     }
   },
 
-  //start () {},
-  //onDestroy () {},
+  // start () {},
+  // onDestroy () {},
   // update (dt) {},
 
   dropDown () {

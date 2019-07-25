@@ -35,18 +35,18 @@ cc.Class({
 
     closeRankBtn: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     nextBtn: {
       default: null,
-      type: cc.Node,
+      type: cc.Node
     },
 
     prevBtn: {
       default: null,
-      type: cc.Node,
-    },
+      type: cc.Node
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -77,23 +77,28 @@ cc.Class({
   },
 
   setHideRankBtn () {
-    this.closeRankBtn.on('touchstart', (() => {
+    this.closeRankBtn.on('touchstart', () => {
       console.log('close rank panel')
       this.rankPanel.active = false
-    }).bind(this), this)
+      cc.game.emit('close rank panel')
+    }, this)
   },
 
   setNextBtn () {
-    this.nextBtn.on('touchstart', (() => {
+    this.nextBtn.on('touchstart', () => {
       console.log('next page')
       cc.game.emit('next page')
-    }).bind(this), this)
+    }, this)
   },
 
   setPrevBtn () {
-    this.prevBtn.on('touchstart', (() => {
+    this.prevBtn.on('touchstart', () => {
       console.log('prev page')
       cc.game.emit('prev page')
-    }).bind(this), this)
+    }, this)
   },
+
+  buttonClicked () {
+    cc.game.emit('click button')
+  }
 })

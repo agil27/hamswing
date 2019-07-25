@@ -437,5 +437,9 @@ cc.Class({
         this.bonusText.active = false
       }, this.bonusAppearanceTime)
     }
+  },
+
+  buttonClicked () {
+    cc.game.emit('click button')
   }
 })

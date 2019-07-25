@@ -173,7 +173,7 @@ cc.Class({
       let fadeout = cc.fadeOut(1.5)
       enemy.node.runAction(cc.sequence(scaleAction, fadeout))
 
-      //根据是否在无敌状态选择游戏结束或杀死怪物得到加分
+      // 根据是否在无敌状态选择游戏结束或杀死怪物得到加分
       if (this.invincible === false) {
         cc.game.emit('gameover')
       } else {

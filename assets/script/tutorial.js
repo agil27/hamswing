@@ -297,7 +297,7 @@ cc.Class({
       } else if (this.readyToGenerateStars) {
         obj = this.generateCollections()
       }
-      
+
       let pos = this.generatePosition()
       if (pos !== null && obj) {
         this.objsLayer.addChild(obj)
@@ -308,7 +308,7 @@ cc.Class({
     }
   },
 
-  generateAll() {
+  generateAll () {
     let rand = Math.random()
     if (rand > 0.8) {
       return cc.instantiate(this.mushroomPrefab)
@@ -317,7 +317,7 @@ cc.Class({
     } else if (rand > 0.3) {
       return cc.instantiate(this.ghostPrefab)
     } else {
-      return cc.instantiate(this.monsterPrefab)    
+      return cc.instantiate(this.monsterPrefab)
     }
   },
 
@@ -528,5 +528,9 @@ cc.Class({
         this.bonusText.active = false
       }, this.bonusAppearanceTime)
     }
+  },
+
+  buttonClicked () {
+    cc.game.emit('click button')
   }
 })
