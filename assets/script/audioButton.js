@@ -9,56 +9,56 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-        audioOn: true,
-        sprite: null
-    },
+  properties: {
+    // foo: {
+    //     // ATTRIBUTES:
+    //     default: null,        // The default value will be used only when the component attaching
+    //                           // to a node for the first time
+    //     type: cc.SpriteFrame, // optional, default is typeof default
+    //     serializable: true,   // optional, default is true
+    // },
+    // bar: {
+    //     get () {
+    //         return this._bar;
+    //     },
+    //     set (value) {
+    //         this._bar = value;
+    //     }
+    // },
+    audioOn: true,
+    sprite: null
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-      this.sprite = this.node.getComponent(cc.Sprite)
-      this.node.on('touchstart', this.onClick, this)
-    },
+  onLoad () {
+    this.sprite = this.node.getComponent(cc.Sprite)
+    this.node.on('touchstart', this.onClick, this)
+  },
 
-    onClick () {
-      let frameAddr = ''
-      if (this.audioOn) {
-        this.audioOn = false
-        frameAddr = 'audioOff'
-        cc.game.emit('disable audio')
-      } else {
-          this.audioOn = true
-          frameAddr = 'audioOn'
-          cc.game.emit('enable audio')
-      }
-      let self = this
-      cc.loader.loadRes(frameAddr, cc.SpriteFrame, function (err, spriteFrame) {
-        if (err) {
-          cc.error(err.message || err)
-          return
-        }
-        if (spriteFrame instanceof cc.SpriteFrame) {
-          self.sprite.spriteFrame = spriteFrame
-        }
-      });
+  onClick () {
+    let frameAddr = ''
+    if (this.audioOn) {
+      this.audioOn = false
+      frameAddr = 'audioOff'
+      cc.game.emit('disable audio')
+    } else {
+      this.audioOn = true
+      frameAddr = 'audioOn'
+      cc.game.emit('enable audio')
     }
-    // update (dt) {},
-});
+    let self = this
+    cc.loader.loadRes(frameAddr, cc.SpriteFrame, function (err, spriteFrame) {
+      if (err) {
+        cc.error(err.message || err)
+        return
+      }
+      if (spriteFrame instanceof cc.SpriteFrame) {
+        self.sprite.spriteFrame = spriteFrame
+      }
+    })
+  }
+  // update (dt) {},
+})
