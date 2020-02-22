@@ -17,26 +17,24 @@ github repo：
 - [https://github.com/zhangxwww/hamswing](https://github.com/zhangxwww/hamswing) (main body)
 - [https://github.com/agil27/hamswing-sub](https://github.com/agil27/hamswing-sub) (subdomain)
 
-Wechat mini-program diagram code
-
-![](ext\0.jpg)
+Wechat mini-app QR code
+![](ext/0.jpg)
 
 ---
 
 ## How to play
 
 In this game, you will impersonate as a hamster, using your contractable claw to jump through the forest.
-![](ext\ym.jpg)
+![](ext/ym.jpg)
 
 Tap the screen and hold to reach out your cord and claw; release to withdraw the cord and fly by gravity.
-![](ext\tutorial_0.png)
+![](ext/tutorial_0.png)
 
 Collect the star to score double; Collect the mushroom to become invincible
-
-![](ext\tutorial_1.png)
+![](ext/tutorial_1.png)
 
 If you touch the monster while you are invincible or you trek on the monster head, you will kill it; otherwise you will be killed
-![](ext\tutorial_2.png)
+![](ext/tutorial_2.png)
 
 ## Reference
 
